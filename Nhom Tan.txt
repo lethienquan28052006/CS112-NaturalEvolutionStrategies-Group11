@@ -1,0 +1,26 @@
+- Huấn luyện mô hình
++ Cực tiểu hóa negative log likelihood: 
++ Để tính được từ nhiễu hoàn toàn từ gốc ban đầu => tính dựa trên nhiễu x1 -> T
++ Bất đẳng thức Jensen ? 
++ ELBO : Evidence Lower Bound 
++ Kullback-Leibler Divergence Dkl (tính sự khác nhau giữa hai phân phối P và Q, P là phân phối chuẩn, Q khác biệt)
++ Demo DKl
++ Hàm mất mát ? 
++ Generate ra các demo bằng Colab ? 
++ Đơn giản hóa hàm mất mát 
++  	
+
+
+- Từ một ảnh nhiễu => đưa ra 1 ảnh chuẩn
+
+- Code chạy ra sample ? 
+- Nêu một số khái niệm
+
+Thầy hỏi : 
+
+Hãy chuẩn bị một loạt các câu hỏi và demo ? 
+Đổi chỗ công thức ? 
+Dkl đổi chỗ được không ?
+
+
+

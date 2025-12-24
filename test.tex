@@ -1,0 +1,38 @@
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+
+% --- Cấu hình giao diện ---
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{} % Ẩn thanh điều hướng
+
+% --- Gói cần thiết ---
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% --- Thông tin bài thuyết trình ---
+\title[Natural Evolution Strategies]{Natural Evolution Strategies (NES)}
+\subtitle{Tối ưu hóa hộp đen dựa trên hình học thông tin}
+\author[Họ Tên]{Họ và Tên của bạn}
+\institute[Đại học XYZ]{Khoa Công nghệ thông tin \\ Trường Đại học ...}
+\date{\today}
+
+\begin{document}
+	
+	%% -------------------------
+	%% 1. Tiêu đề
+	%% -------------------------
+	\begin{frame} 
+		\titlepage
+		\vspace{0.5cm}
+		\centering
+		\textbf{Thông điệp chính:} NES = \emph{evolution strategies} + \emph{natural gradient} $\Rightarrow$ cập nhật phân phối ổn định, bất biến tham số hoá.
+	\end{frame}
+
+\end{document}

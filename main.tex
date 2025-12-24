@@ -1,0 +1,229 @@
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+
+% --- Giao diện và Font ---
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{caption}[numbered]
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{bm}
+\usepackage{booktabs}
+
+% --- Lệnh toán học ---
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathcal{N}}
+
+\title[Natural Evolution Strategies]{Natural Evolution Strategies (NES)}
+\subtitle{Tối ưu hóa tiến hóa dựa trên Hình học thông tin}
+\author[Tên Bạn]{Họ và Tên của bạn}
+\institute[Đại học XYZ]{Khoa Công nghệ thông tin}
+\date{\today}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Nội dung trình bày}
+		\tableofcontents
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 1
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 1: Vấn đề \& Động lực}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 1:\\[0.5em] Vấn đề \& Động lực \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{1.1. Thách thức của Tối ưu hóa Hộp đen (Black-box)}
+		
+		Xét bài toán tìm $z^* = \arg \min f(z)$ khi:
+		\begin{itemize}
+			\item \textbf{Không có đạo hàm:} Hàm mục tiêu không thể lấy đạo hàm trực tiếp (ví dụ: mô phỏng vật lý, robot).
+			\item \textbf{Nhiễu (Noisy):} Giá trị $f(z)$ không ổn định, thay đổi nhẹ do tác động ngẫu nhiên.
+			\item \textbf{Động lực của NES:} Thay vì thử nghiệm từng điểm $z$, ta tối ưu hóa một \textbf{phân phối xác suất} $\pi(z|\theta)$ bao phủ các vùng có giá trị tốt.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{1.2. Tại sao Vanilla Search Gradient lại thất bại?}
+		Nếu dùng Gradient Descent truyền thống trên tham số $\theta = (\mu, \sigma)$:
+		\begin{itemize}
+			\item \textbf{Độ nhạy không đồng nhất:} Một thay đổi nhỏ ở $\sigma$ tác động mạnh hơn nhiều so với $\mu$.
+			\item \textbf{Lỗi bùng nổ Gradient (Variance Collapse):}
+			Khi $\sigma \to 0$, gradient Euclidean của phương sai tỉ lệ nghịch với $\sigma^3$:
+			\[ \nabla_\sigma \log \pi \propto \frac{(z-\mu)^2 - \sigma^2}{\sigma^3} \]
+			$\rightarrow$ Làm thuật toán mất ổn định hoặc sụp đổ trước khi tới đích.
+		\end{itemize}
+		\begin{alertblock}{Vấn đề cốt lõi}
+			Khoảng cách Euclidean trong không gian tham số không phản ánh đúng sự thay đổi hành vi của phân phối xác suất.
+		\end{alertblock}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 2
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 2: Linh hồn NES — Natural Gradient}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 2:\\[0.5em] Linh hồn NES — Natural Gradient \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{2.1. Hàm mục tiêu Kỳ vọng (Expected Fitness)}
+		Mục tiêu của NES là tối ưu hóa giá trị kỳ vọng của hàm $f$ trên phân phối $\pi$:
+		\[ J(\theta) = \E_{\pi(z|\theta)}[f(z)] = \int f(z) \pi(z|\theta) dz \]
+		Sử dụng \textbf{Log-Likelihood Trick} (Score Function):
+		\begin{align*}
+			\nabla_\theta J(\theta) &= \int f(z) \nabla_\theta \pi(z|\theta) dz \\
+			&= \int f(z) \frac{\nabla_\theta \pi(z|\theta)}{\pi(z|\theta)} \pi(z|\theta) dz \\
+			&= \E_{z \sim \pi} \left[ f(z) \nabla_\theta \log \pi(z|\theta) \right]
+		\end{align*}
+	\end{frame}
+	
+	\begin{frame}{2.2. Ước lượng Monte Carlo}
+		
+		Tích phân kỳ vọng được xấp xỉ bằng quần thể $\lambda$ mẫu:
+		\[ \hat{\nabla}_\theta J \approx \frac{1}{\lambda} \sum_{k=1}^{\lambda} f(z_k) \nabla_\theta \log \pi(z_k|\theta) \]
+		\begin{itemize}
+			\item \textbf{Tính không chệch:} Khi $\lambda$ đủ lớn, ước lượng hội tụ về gradient thực.
+			\item \textbf{Song song hóa:} Việc đánh giá $f(z_k)$ có thể thực hiện đồng thời trên nhiều CPU/GPU.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{2.3. Kỹ thuật ổn định: Baseline và Rank-based Utilities}
+		Để giảm phương sai và tăng tính bền bỉ, NES thay $f(z_k)$ bằng trọng số tiện ích $u_k$:
+		\[ \hat{\nabla}_\theta J \approx \frac{1}{\lambda} \sum_{k=1}^{\lambda} u_k \nabla_\theta \log \pi(z_k|\theta) \]
+		\begin{itemize}
+			\item \textbf{Baseline (b):} Trừ bớt một giá trị trung bình $(f(z_k) - b)$ để gradient tập trung vào sự khác biệt.
+			\item \textbf{Rank-based Utilities:} Gán $u_k$ dựa trên \textbf{thứ hạng} của $f(z_k)$.
+			\item \textbf{Đặc điểm:} $\sum u_k = 0$. Giúp thuật toán \textbf{bất biến} với các phép biến đổi đơn điệu của hàm mục tiêu (ví dụ: tối ưu $f(z)$ hay $\exp(f(z))$ là như nhau).
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{2.4. Ma trận Fisher \& Hình học Thông tin}
+		
+		\begin{itemize}
+			\item \textbf{Ma trận Fisher (F):} Đo độ cong của không gian phân phối dựa trên khoảng cách KL.
+			\[ F(\theta) = \E [\nabla_\theta \log \pi \nabla_\theta \log \pi^\top] \]
+			\item \textbf{Natural Gradient:} $\tilde{\nabla}_\theta J = F(\theta)^{-1} \nabla_\theta J$.
+			\item \textbf{Ý nghĩa:} Natural Gradient tìm hướng đi dốc nhất trong "không gian xác suất thực sự", giúp tránh các bước đi zig-zag kém hiệu quả của gradient Euclidean.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{2.5. Tổng quan Quy trình NES (Pipeline)}
+		Quy trình lặp của thuật toán NES:
+		\begin{enumerate}
+			\item \textbf{Khởi tạo:} Tham số $\theta$ (thường là $\mu, \Sigma$).
+			\item \textbf{Sinh mẫu:} Lấy $\lambda$ mẫu $z_k \sim \pi(z|\theta)$.
+			\item \textbf{Đánh giá:} Tính $f(z_k)$ và sắp xếp thứ hạng để có $u_k$.
+			\item \textbf{Gradient:} Tính $\hat{\nabla}_\theta J$ và ước lượng ma trận Fisher $F$.
+			\item \textbf{Natural Update:} Tính hướng đi $\tilde{\nabla}_\theta J = F^{-1} \hat{\nabla}_\theta J$.
+			\item \textbf{Cập nhật:} $\theta \leftarrow \theta + \eta \tilde{\nabla}_\theta J$.
+		\end{enumerate}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 3
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 3: Các phiên bản xNES và SNES}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 3:\\[0.5em] Các phiên bản xNES và SNES \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{3.1. xNES (Exponential NES)}
+		Dành cho bài toán số chiều vừa phải ($d < 500$), sử dụng Full Covariance.
+		\begin{itemize}
+			\item \textbf{Cơ chế:} Tham số hóa $\Sigma = \sigma^2 \exp(M)$. Phép cập nhật kiểu nhân (multiplicative) đảm bảo $\Sigma$ luôn dương.
+			\item \textbf{Ưu điểm:} Học được mối tương quan chéo giữa các biến. Bất biến với phép quay tọa độ.
+			\item \textbf{Nhược điểm:} Chi phí tính toán cao $O(d^3)$ do nghịch đảo ma trận.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{3.2. SNES (Separable NES)}
+		Dành cho bài toán số chiều lớn (Deep Learning, hàng triệu tham số).
+		\begin{itemize}
+			\item \textbf{Cơ chế:} Giả định các biến độc lập, $\Sigma$ là ma trận đường chéo.
+			\item \textbf{Ưu điểm:} Độ phức tạp cực thấp $O(d)$, tiết kiệm bộ nhớ.
+			\item \textbf{Nhược điểm:} Không học được mối tương quan giữa các chiều dữ liệu. Thất bại nếu vùng tối ưu nằm chéo trục tọa độ.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{3.3. So sánh xNES vs SNES}
+		\centering
+		\begin{table}
+			\begin{tabular}{l p{3.5cm} p{3.5cm}}
+				\toprule
+				\textbf{Đặc điểm} & \textbf{xNES} & \textbf{SNES} \\
+				\midrule
+				\textbf{Ma trận hiệp phương sai} & Đầy đủ (Full) & Đường chéo (Diagonal) \\
+				\textbf{Độ phức tạp} & $O(d^3)$ & $O(d)$ \\
+				\textbf{Tính bất biến quay} & Có & Không \\
+				\textbf{Quy mô bài toán} & Nhỏ/Vừa (Robot) & Rất lớn (Mạng Neural) \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 4
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 4: So sánh & Kết luận}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 4:\\[0.5em] So sánh \& Thực nghiệm \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{4.1. NES vs CMA-ES}
+		Cả hai đều là đỉnh cao của Evolution Strategies trên phân phối Gaussian.
+		\begin{itemize}
+			\item \textbf{Giống nhau:} Dùng trọng số theo hạng (rank-based), duy trì $\mu$ và $\Sigma$.
+			\item \textbf{Khác nhau về triết lý:}
+			\begin{itemize}
+				\item \textbf{CMA-ES:} Dựa trên \textit{Heuristics} (Evolution paths, rank-1 update). Vô cùng mạnh mẽ và ổn định trong thực tế.
+				\item \textbf{NES:} Dựa trên \textit{Hình học thông tin} (Natural Gradient). Có nền tảng toán học thuần túy, dễ mở rộng sang các phân phối phi Gaussian.
+			\end{itemize}
+		\end{itemize}
+		\begin{exampleblock}{Nhận định}
+			CMA-ES là lựa chọn thực dụng hàng đầu; NES là lựa chọn tối ưu khi cần tính lý thuyết và bất biến tham số hóa cao.
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{4.2. Demo thực nghiệm trên hàm Rosenbrock}
+		
+		\begin{itemize}
+			\item \textbf{Hiện tượng:} Hàm Rosenbrock có lòng thung lũng hẹp và cong.
+			\item \textbf{Kết quả xNES:} Đám mây mẫu tự động xoay và dẹt lại để "chui" vừa vào lòng thung lũng nhờ học được ma trận hiệp phương sai đầy đủ.
+			\item \textbf{Kết quả SNES:} Di chuyển khó khăn hơn vì không thể xoay đám mây theo hướng chéo của thung lũng.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{4.3. Kết luận}
+		\begin{enumerate}
+			\item \textbf{Tầm quan trọng:} NES đặt nền móng toán học vững chắc cho các thuật toán tiến hóa.
+			\item \textbf{Natural Gradient:} Là công cụ mạnh mẽ để vượt qua các hạn chế của gradient truyền thống trong không gian xác suất.
+			\item \textbf{Tính ứng dụng:} xNES và SNES tạo ra sự linh hoạt cho nhiều quy mô bài toán khác nhau.
+		\end{enumerate}
+		\vspace{0.4cm}
+		\centering
+		\LARGE \textbf{Cảm ơn Thầy và các bạn đã lắng nghe!}
+	\end{frame}
+	
+\end{document}

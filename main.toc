@@ -1,0 +1,5 @@
+\babel@toc {vietnamese}{}\relax 
+\beamer@sectionintoc {1}{Chương 1: Vấn đề \& Động lực}{3}{0}{1}
+\beamer@sectionintoc {2}{Chương 2: Linh hồn NES — Natural Gradient}{6}{0}{2}
+\beamer@sectionintoc {3}{Chương 3: Các phiên bản xNES và SNES}{12}{0}{3}
+\beamer@sectionintoc {4}{Chương 4: So sánh \& Kết luận}{16}{0}{4}

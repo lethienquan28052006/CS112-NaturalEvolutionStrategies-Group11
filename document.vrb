@@ -1,0 +1,18 @@
+\frametitle{Pseudo-code: Natural Gradient NES}
+\begin{algorithm}
+		\caption{Natural Gradient NES (sketch)}
+		\begin{algorithmic}[1]
+			\STATE \textbf{Input:} initial $\theta$, learning rate $\eta$, pop size $\lambda$
+			\FOR{$t = 1,2,\dots$}
+			\FOR{$k = 1$ \TO $\lambda$}
+			\STATE Sample $x_k \sim \pi(\cdot|\theta)$
+			\STATE $f_k \leftarrow f(x_k)$
+			\STATE $s_k \leftarrow \nabla_\theta \log \pi(x_k|\theta)$
+			\ENDFOR
+			\STATE $\hat{g} \leftarrow \frac{1}{\lambda}\sum_{k} u_k\, s_k$ \hfill (rank-based utilities)
+			\STATE $\hat{F} \leftarrow \frac{1}{\lambda}\sum_k s_k s_k^\top$ \hfill (Fisher estimate)
+			\STATE $\delta \leftarrow \hat{F}^{-1}\hat{g}$ \hfill (natural step)
+			\STATE $\theta \leftarrow \theta + \eta\,\delta$
+			\ENDFOR
+		\end{algorithmic}
+	\end{algorithm}

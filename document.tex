@@ -1,0 +1,388 @@
+\documentclass[10pt,xcolor=dvipsnames]{beamer}
+
+% --- Cấu hình giao diện ---
+\usetheme{Madrid}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{caption}[numbered]
+
+% --- Gói cần thiết ---
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{booktabs}
+
+% --- Định nghĩa lệnh toán học ---
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathcal{N}}
+
+\title[Natural Evolution Strategies]{Natural Evolution Strategies (NES)}
+\subtitle{Tối ưu hóa hộp đen dựa trên Hình học thông tin}
+\author[Tên Bạn]{Họ và Tên của bạn}
+\institute[Đại học XYZ]{Khoa Công nghệ thông tin}
+\date{\today}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Nội dung trình bày}
+		\tableofcontents
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 1
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 1: Vấn đề \& Động lực}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 1:\\[0.5em] Vấn đề \& Động lực \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{1.1. Thách thức của Tối ưu hóa Hộp đen (Black-box)}
+		Xét bài toán tìm $z^* = \arg \min f(z)$. Trong thực tế, $f(z)$ thường:
+		\begin{itemize}
+			\item \textbf{Không có đạo hàm:} Không thể dùng Backpropagation hay Gradient Descent truyền thống.
+			\item \textbf{Nhiễu (Noisy):} Giá trị $f(z)$ thay đổi nhẹ ngay cả tại cùng một điểm.
+			\item \textbf{Đắt đỏ:} Việc đánh giá $f(z)$ tốn nhiều tài nguyên hoặc thời gian.
+		\end{itemize}
+		\vspace{0.3cm}
+		\textbf{Động lực:} Chúng ta cần một phương pháp tìm kiếm dựa trên \textbf{Phân phối xác suất} $\pi(z|\theta)$ để thăm dò không gian thay vì chỉ thử nghiệm từng điểm đơn lẻ.
+	\end{frame}
+	
+	\begin{frame}{1.2. Tại sao Vanilla Search Gradient lại thất bại?}
+		Giả sử ta dùng Gradient Descent truyền thống trên tham số $\theta = (\mu, \sigma)$.
+		\begin{itemize}
+			\item \textbf{Vấn đề 1 - Độ nhạy tham số:} Một thay đổi nhỏ ở $\sigma$ tác động đến phân phối mạnh hơn nhiều so với $\mu$.
+			\item \textbf{Vấn đề 2 - Bùng nổ Gradient (Variance Collapse):}
+			Khi $\sigma \to 0$, gradient của phương sai tỉ lệ với $1/\sigma^3$:
+			\[ \nabla_\sigma \log \pi \propto \frac{(z-\mu)^2 - \sigma^2}{\sigma^3} \]
+			$\rightarrow$ Bước cập nhật trở nên cực kỳ bất ổn, làm thuật toán "sập" trước khi tới đích.
+		\end{itemize}
+		\begin{block}{Kết luận}
+			Khoảng cách Euclidean trong không gian tham số $\theta$ không phản ánh đúng sự thay đổi của hành vi (phân phối xác suất).
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{1.3. Giải pháp từ NES: Thay đổi cuộc chơi}
+		NES khắc phục các yếu điểm trên bằng cách sử dụng \textbf{Natural Gradient} thay cho Euclidean Gradient:
+		
+		
+		
+		\begin{itemize}
+			\item \textbf{Tính bất biến (Invariance):} NES đảm bảo cập nhật giống hệt nhau bất kể bạn tham số hóa mô hình như thế nào. Bạn dùng $\sigma$ hay $\sigma^2$, thuật toán vẫn đi cùng một quãng đường xác suất.
+			\item \textbf{Độ ổn định tự thân:} Natural Gradient tự điều chỉnh độ dài bước đi dựa trên "độ cong" của không gian xác suất, loại bỏ hoàn toàn hiện tượng bùng nổ gradient khi phương sai nhỏ.
+			\item \textbf{Hiệu quả mẫu:} Bằng cách sử dụng toàn bộ cấu trúc hình học của phân phối (qua ma trận Fisher), NES tìm ra hướng đi ngắn nhất đến vùng tối ưu.
+		\end{itemize}
+		\begin{exampleblock}{Triết lý của NES}
+			Đừng tối ưu hóa các con số ($\theta$), hãy tối ưu hóa \textbf{hành vi tìm kiếm} ($\pi$).
+		\end{exampleblock}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 2
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 2: Linh hồn NES — Natural Gradient}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 2:\\[0.5em] Linh hồn NES — Natural Gradient \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{2.1. Hàm mục tiêu Kỳ vọng (Expected Fitness)}
+		NES tối ưu hóa \textbf{giá trị trung bình} của hàm thích nghi trên phân phối tìm kiếm:
+		\begin{equation}
+			J(\theta) = \E_{\pi(z|\theta)}[f(z)] = \int f(z) \pi(z|\theta) dz
+		\end{equation}
+		Sử dụng \textbf{Log-Likelihood Trick} (Score Function) để chuyển đổi đạo hàm:
+		\begin{align}
+			\nabla_\theta J(\theta) &= \int f(z) \nabla_\theta \pi(z|\theta) dz \nonumber \\
+			&= \int f(z) \frac{\nabla_\theta \pi(z|\theta)}{\pi(z|\theta)} \pi(z|\theta) dz \nonumber \\
+			&= \E_{z \sim \pi} \left[ f(z) \nabla_\theta \log \pi(z|\theta) \right]
+		\end{align}
+	\end{frame}
+	
+	\begin{frame}{2.2. Từ Lý thuyết đến Thực thi: Ước lượng Monte Carlo}
+		\textbf{Vì sao cần Monte Carlo?}
+		Trong tối ưu hóa hộp đen, ta không biết công thức giải tích của $f(z)$. Do đó, tích phân kỳ vọng $\int (\dots) dz$ là không thể tính toán trực tiếp.
+		
+		
+		
+		\textbf{Để làm gì?}
+		Dùng để \textbf{xấp xỉ} giá trị gradient lý thuyết thông qua việc lấy mẫu thực nghiệm:
+		\begin{block}{Công thức xấp xỉ Gradient}
+			\[ \hat{\nabla}_\theta J \approx \frac{1}{\lambda} \sum_{k=1}^{\lambda} f(z_k) \nabla_\theta \log \pi(z_k|\theta) \]
+			Trong đó $\lambda$ là kích thước quần thể (số mẫu thử $z_k \sim \pi$).
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{2.3. Cải tiến Utility: Nâng cao sự bền bỉ}
+		\textbf{Cải tiến Utility là gì?} 
+		Là việc thay thế giá trị $f(z_k)$ thô bằng một trọng số tiện ích $u_k$ dựa trên **thứ hạng (rank)** của cá thể trong quần thể.
+		
+		
+		
+		\textbf{Để làm gì?} 
+		\begin{itemize}
+			\item \textbf{Chống nhiễu \& Outliers:} Loại bỏ ảnh hưởng của các giá trị cực đoan.
+			\item \textbf{Tính bất biến (Invariance):} Giúp thuật toán hoạt động giống hệt nhau dù ta tối ưu $f(z)$ hay $\log(f(z))$.
+		\end{itemize}
+		
+		\textbf{Cải tiến như thế nào?}
+		\begin{enumerate}
+			\item Sắp xếp $\lambda$ mẫu theo giá trị $f(z)$ tăng dần.
+			\item Gán trọng số $u_k$ giảm dần cho các mẫu tốt nhất.
+			\item Đảm bảo \textbf{Baseline trung tâm}: $\sum_{k=1}^{\lambda} u_k = 0$.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{2.4. Ma trận Fisher \& Hình học Thông tin}
+		
+		\begin{itemize}
+			\item \textbf{Ma trận Fisher (F):} Đo độ cong của không gian xác suất dựa trên khoảng cách KL.
+			\[ F(\theta) = \E [\nabla_\theta \log \pi \nabla_\theta \log \pi^\top] \]
+			\item \textbf{Natural Gradient:} $\tilde{\nabla}_\theta J = F(\theta)^{-1} \hat{\nabla}_\theta J$.
+			\item \textbf{Ý nghĩa:} Natural Gradient tìm hướng đi dốc nhất trong không gian phân phối, tránh các bước đi zig-zag kém hiệu quả của gradient Euclidean.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{2.5. Tổng quan Quy trình NES (Pipeline)}
+		\begin{enumerate}
+			\item \textbf{Khởi tạo:} Tham số $\theta$ (thường là $\mu, \Sigma$).
+			\item \textbf{Sinh mẫu:} Lấy $\lambda$ mẫu $z_k \sim \pi(z|\theta)$.
+			\item \textbf{Đánh giá:} Tính $f(z_k)$ và chuyển thành Utilities $u_k$ dựa trên rank.
+			\item \textbf{Ước lượng:} Tính gradient $\hat{\nabla}_\theta J$ và ma trận Fisher $F$ qua Monte Carlo.
+			\item \textbf{Natural Update:} Tính hướng đi $\tilde{\nabla}_\theta J = F^{-1} \hat{\nabla}_\theta J$.
+			\item \textbf{Cập nhật:} $\theta \leftarrow \theta + \eta \tilde{\nabla}_\theta J$. Quay lại bước 2.
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{2.6. Thuật toán NES (Pseudo-code)}
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\STATE \textbf{Input:} Learning rate $\eta$, Population size $\lambda$, Initial $\theta$
+				\WHILE{không hội tụ}
+				\STATE Sample $z_1, \dots, z_\lambda \sim \pi(z|\theta)$
+				\STATE Evaluate $f(z_1), \dots, f(z_\lambda)$
+				\STATE Sort samples and compute utilities $u_1, \dots, u_\lambda$
+				\STATE $\nabla_\theta J \leftarrow \frac{1}{\lambda} \sum_{k=1}^\lambda u_k \nabla_\theta \log \pi(z_k|\theta)$
+				\STATE $F \leftarrow \frac{1}{\lambda} \sum_{k=1}^\lambda \nabla_\theta \log \pi(z_k|\theta) \nabla_\theta \log \pi(z_k|\theta)^T$
+				\STATE $\tilde{\nabla}_\theta J \leftarrow F^{-1} \nabla_\theta J$ \COMMENT{Natural Gradient}
+				\STATE $\theta \leftarrow \theta + \eta \tilde{\nabla}_\theta J$
+				\ENDWHILE
+			\end{algorithmic}
+			\caption{General Canonical NES}
+		\end{algorithm}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 3
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 3: Các phiên bản "Đỉnh cao" của họ NES}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 3:\\[0.5em] Các phiên bản "Đỉnh cao" của họ NES \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{3.1. xNES (Exponential NES)}
+		\textbf{Đặc trưng:} Sử dụng ma trận hiệp phương sai đầy đủ (\textit{Full Covariance}), cho phép học mối tương quan giữa các chiều.
+		\vspace{0.2cm}
+		\textbf{Quy trình chi tiết (xNES Pipeline):}
+		\begin{enumerate}
+			\item \textbf{Khởi tạo:} Tâm $\mu$ và ma trận hiệp phương sai thông qua $\sigma$ và $B$ (với $A = \sigma B$ và $B$ có $\det(B)=1$).
+			\item \textbf{Sinh mẫu chuẩn:} Lấy $\lambda$ mẫu $s_k \sim \mathcal{N}(0, I)$.
+			\item \textbf{Biến đổi mẫu:} Tạo các cá thể $z_k = \mu + \sigma B s_k$.
+			\item \textbf{Đánh giá:} Tính $f(z_k)$ và quy đổi sang Utilities $u_k$ dựa trên hạng.
+			\item \textbf{Tính Gradient cục bộ:} Tính đạo hàm cho $\mu, \sigma$ và ma trận $B$ trong hệ tọa độ tự nhiên (nơi $F=I$).
+			\item \textbf{Cập nhật kiểu nhân (Exponential Update):} 
+			\begin{itemize}
+				\item $\mu \leftarrow \mu + \eta_\mu \sigma B \nabla_\delta$
+				\item $\sigma \leftarrow \sigma \cdot \exp(\frac{\eta_\sigma}{2} \nabla_\sigma)$
+				\item $B \leftarrow B \cdot \exp(\eta_B \nabla_B)$
+			\end{itemize}
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{3.2. Thuật toán xNES (Pseudo-code)}
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\STATE Sample $s_k \sim \mathcal{N}(0, I)$ for $k=1 \dots \lambda$
+				\STATE $z_k \leftarrow \mu + \sigma B s_k$
+				\STATE Compute gradients for local coordinates:
+				\STATE $\nabla_\delta \leftarrow \sum u_k s_k$, \quad $\nabla_\sigma \leftarrow \sum u_k (\|s_k\|^2 - d)/d$
+				\STATE $\nabla_B \leftarrow \sum u_k (s_k s_k^T - I - \frac{\|s_k\|^2 - d}{d} I)$
+				\STATE $\mu \leftarrow \mu + \eta_\mu \sigma B \nabla_\delta$
+				\STATE $\sigma \leftarrow \sigma \cdot \exp(\frac{\eta_\sigma}{2} \nabla_\sigma)$
+				\STATE $B \leftarrow B \cdot \exp(\eta_B \nabla_B)$ \COMMENT{Matrix exponential}
+			\end{algorithmic}
+			\caption{Exponential NES (xNES)}
+		\end{algorithm}
+	\end{frame}
+	
+	\begin{frame}{3.3. SNES (Separable NES)}
+		\textbf{Đặc trưng:} Giả định các biến độc lập (\textit{Diagonal Covariance}). Phù hợp cho bài toán rất lớn (high-dimensional).
+		\vspace{0.2cm}
+		\textbf{Quy trình chi tiết (SNES Pipeline):}
+		\begin{enumerate}
+			\item \textbf{Khởi tạo:} Vector trung bình $\mu$ và vector độ lệch chuẩn $\sigma$ (cùng số chiều $d$).
+			\item \textbf{Sinh mẫu:} Lấy $\lambda$ mẫu $s_k \sim \mathcal{N}(0, I)$.
+			\item \textbf{Biến đổi mẫu:} $z_{k,i} = \mu_i + \sigma_i s_{k,i}$ (tính toán độc lập trên từng chiều $i$).
+			\item \textbf{Đánh giá:} Tính $f(z_k)$ và quy đổi sang Utilities $u_k$.
+			\item \textbf{Tính Gradient thành phần:} 
+			\begin{itemize}
+				\item $\nabla_{\mu,i} = \sum u_k s_{k,i}$
+				\item $\nabla_{\sigma,i} = \sum u_k (s_{k,i}^2 - 1)$
+			\end{itemize}
+			\item \textbf{Cập nhật độc lập:}
+			\begin{itemize}
+				\item $\mu_i \leftarrow \mu_i + \eta_\mu \sigma_i \nabla_{\mu,i}$
+				\item $\sigma_i \leftarrow \sigma_i \cdot \exp(\frac{\eta_\sigma}{2} \nabla_{\sigma,i})$
+			\end{itemize}
+		\end{enumerate}
+	\end{frame}
+	
+	\begin{frame}{3.4. Thuật toán SNES (Pseudo-code)}
+		\begin{algorithm}[H]
+			\begin{algorithmic}[1]
+				\STATE Sample $s_k \sim \mathcal{N}(0, I)$ for $k=1 \dots \lambda$
+				\STATE $z_{k,i} \leftarrow \mu_i + \sigma_i s_{k,i}$ for each dimension $i$
+				\STATE Compute element-wise gradients:
+				\STATE $\nabla_{\mu,i} \leftarrow \sum_{k=1}^\lambda u_k s_{k,i}$
+				\STATE $\nabla_{\sigma,i} \leftarrow \sum_{k=1}^\lambda u_k (s_{k,i}^2 - 1)$
+				\STATE $\mu_i \leftarrow \mu_i + \eta_\mu \sigma_i \nabla_{\mu,i}$
+				\STATE $\sigma_i \leftarrow \sigma_i \cdot \exp(\frac{\eta_\sigma}{2} \nabla_{\sigma,i})$
+			\end{algorithmic}
+			\caption{Separable NES (SNES)}
+		\end{algorithm}
+	\end{frame}
+	
+	\begin{frame}{3.5. So sánh xNES vs SNES}
+		\centering
+		\begin{table}
+			\begin{tabular}{l p{3.5cm} p{3.5cm}}
+				\toprule
+				\textbf{Đặc điểm} & \textbf{xNES (Exponential)} & \textbf{SNES (Separable)} \\
+				\midrule
+				\textbf{Cấu trúc $\Sigma$} & Ma trận đầy đủ & Ma trận đường chéo \\
+				\textbf{Độ phức tạp} & $O(d^3)$ & $O(d)$ \\
+				\textbf{Học tương quan} & Có (Rất tốt) & Không \\
+				\textbf{Khả năng mở rộng} & Bài toán vừa ($d < 500$) & Bài toán lớn ($d > 10^6$) \\
+				\textbf{Tính bất biến} & Bất biến với phép quay & Không bất biến với phép quay \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% CHƯƠNG 4
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Chương 4: So sánh \& Kết luận}
+	
+	\begin{frame}
+		\centering
+		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\huge Chương 4:\\[0.5em] So sánh \& Thực nghiệm \par
+		\end{beamercolorbox}
+	\end{frame}
+	
+	\begin{frame}{4.1. NES vs CMA-ES}
+		Cả hai đều là tiêu chuẩn vàng trong tối ưu hóa tiến hóa Gaussian.
+		\begin{itemize}
+			\item \textbf{Giống nhau:} Dùng phân phối Gaussian, dùng rank-based weights.
+			\item \textbf{Khác nhau:}
+			\begin{itemize}
+				\item \textbf{CMA-ES:} Dựa trên Heuristics (Evolution paths). Cực kỳ mạnh trong thực tế nhưng thiếu nền tảng toán học thống nhất.
+				\item \textbf{NES:} Dựa trên Natural Gradient (Fisher). Có cơ sở lý thuyết vững chắc, dễ mở rộng sang các phân phối khác.
+			\end{itemize}
+		\end{itemize}
+		\begin{exampleblock}{Kết luận}
+			CMA-ES là lựa chọn thực dụng; NES là lựa chọn cho nghiên cứu sâu và các bài toán cần tính bất biến tuyệt đối.
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{4.2. Thiết lập thực nghiệm}
+		\textbf{Bài toán:} Tối ưu hóa hàm \textbf{Rastrigin} ($d=2$ và $d=10$).
+		\[ f(\mathbf{x}) = 10d + \sum_{i=1}^{d} [x_i^2 - 10\cos(2\pi x_i)] \]
+		\begin{itemize}
+			\item \textbf{Đặc điểm:} Non-convex, cực kỳ nhiều bẫy local minima.
+			\item \textbf{Mục tiêu:} Tìm Global Minimum tại $\mathbf{x} = \mathbf{0}, f(\mathbf{x}) = 0$.
+		\end{itemize}
+		\textbf{Cấu hình thuật toán:}
+		\begin{itemize}
+			\item \textbf{NES:} Gaussian $\mathcal{N}(\mu, \sigma^2 I)$, $\lambda=50$, Rank-based Utilities.
+			\item \textbf{CMA-ES:} Cấu hình chuẩn (thư viện \texttt{pycma}).
+			\item \textbf{Gradient Descent (GD):} Learning rate tối ưu, dùng analytic gradient.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{4.3. Kết quả hội tụ (Convergence Analysis) với d = 2}	
+		\begin{center}
+			\includegraphics[width=\textwidth]{rastrigin1.png}
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{4.3. Kết quả hội tụ (Convergence Analysis)}	
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\textbf{Chỉ số đánh giá:}
+				\begin{itemize}
+					\item \textbf{Best Fitness:} NES hội tụ mượt mà về 0.
+					\item \textbf{Robustness:} Tỉ lệ thành công (20 lần chạy).
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\begin{table}
+					\resizebox{\textwidth}{!}{
+						\begin{tabular}{lccc}
+							\toprule
+							\textbf{Tiêu chí} & \textbf{GD} & \textbf{CMA-ES} & \textbf{NES} \\
+							\midrule
+							Hội tụ toàn cục & Thấp & Rất cao & \textbf{Cao} \\
+							Độ mượt & Thấp & Cao & \textbf{Rất cao} \\
+							Ổn định (Noise) & Kém & Tốt & \textbf{Rất tốt} \\
+							\bottomrule
+					\end{tabular}}
+				\end{table}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{4.4. Trực quan hóa Quỹ đạo (Trajectory Plot)}
+		
+		\textbf{Phân tích hành vi:}
+		\begin{itemize}
+			\item \textbf{Gradient Descent:} Bị mắc kẹt ngay lập tức tại các "hố" local minima gần điểm khởi tạo.
+			\item \textbf{NES (Natural Gradient):} Nhờ thăm dò bằng phân phối, NES "nhìn" ra cấu trúc bề mặt và đi xuyên qua các bẫy cục bộ.
+			\item \textbf{Rank-based Utility:} Giúp các bước cập nhật không bị kéo lệch bởi các giá trị fitness quá lớn ở vùng biên.
+		\end{itemize}
+		\begin{exampleblock}{Kết luận từ thực nghiệm}
+			NES cho thấy sự cân bằng hoàn hảo giữa khả năng thăm dò (Exploration) và khai thác (Exploitation).
+		\end{exampleblock}
+	\end{frame}
+	
+	\begin{frame}{4.5. Kết luận}
+		\begin{enumerate}
+			\item NES cung cấp nền tảng toán học vững chắc cho tiến hóa thông qua Hình học thông tin.
+			\item Natural Gradient là chìa khóa để đạt được sự ổn định và tính bất biến.
+			\item xNES mang lại độ chính xác cao nhất, SNES mang lại hiệu suất cho các bài toán lớn.
+		\end{enumerate}
+		\vspace{0.5cm}
+		\centering
+		\LARGE \textbf{Cảm ơn Thầy và các bạn!}
+	\end{frame}
+	
+\end{document}
