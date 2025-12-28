@@ -22,7 +22,7 @@
 
 % --- Phần khai báo đầu file ---
 \title[Natural Evolution Strategies]{\textbf{Natural Evolution Strategies (NES)}}
-\subtitle{\textbf{Chiến lược Tiến hóa Tự nhiên}}
+\subtitle{\textbf{Chiến lược Tiến hóa tự nhiên}}
 
 % Sử dụng \\ để ngắt dòng giữa các thành viên cho đẹp
 \author[Quân \& Hùng]{
@@ -52,7 +52,7 @@
 % CHƯƠNG 1: GIỚI THIỆU & BỐI CẢNH
 % Dựa trên Section 1, 1.1, 1.2 của bài báo Wierstra et al. (2014)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Chương 1: Giới thiệu \& Bối cảnh}
+\section{Chương 1: Giới thiệu}
 
 \begin{frame}
 	\centering
@@ -61,9 +61,9 @@
 	\end{beamercolorbox}
 \end{frame}
 
-\begin{frame}{\textbf{1.1. Bài toán Tối ưu hóa Hộp đen (Black-Box Optimization)}}
+\begin{frame}{\textbf{1.1. Bài toán Tối ưu hóa hộp đen (Black-Box Optimization)}}
 	\textbf{Thực trạng:}
-	Nhiều bài toán thực tế (Y tế, Hàng không, Điều khiển tự động...) quá phức tạp để mô hình hóa trực tiếp.
+	Nhiều bài toán thực tế (y tế, hàng không, điều khiển tự động...) quá phức tạp để mô hình hóa trực tiếp.
 	
 	\textbf{Đặc điểm "Hộp đen":}
 	\begin{itemize}
@@ -141,7 +141,7 @@
 % CHƯƠNG 2: SEARCH GRADIENTS & NATURAL GRADIENT
 % Nội dung chi tiết dựa trên Section 2 của Wierstra et al.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Chương 2: Cơ sở Toán học của NES}
+\section{Chương 2: Cơ sở toán học}
 
 \begin{frame}
 	\centering
@@ -154,7 +154,7 @@
 \begin{frame}{\textbf{2.1. Định nghĩa Search Gradient}}
 	Để giải quyết bài toán hộp đen một cách toán học, NES tối ưu hóa \textbf{Kỳ vọng hàm thích nghi} (Expected Fitness) thay vì tối ưu trực tiếp $f(x)$.
 	
-	Gọi $\theta$ là tham số của phân phối tìm kiếm $\pi(z|\theta)$. Hàm mục tiêu $J(\theta)$ được định nghĩa (Eq. 1):
+	Gọi $\theta$ là tham số của phân phối tìm kiếm $\pi(z|\theta)$. Hàm mục tiêu $J(\theta)$ được định nghĩa:
 	\begin{equation}
 		J(\theta) = \E_{\theta}[f(z)] = \int f(z) \pi(z|\theta) dz
 	\end{equation}
@@ -215,8 +215,8 @@
 \begin{frame}{\textbf{2.5. Tại sao Search Gradient thông thường thất bại?}}
 \end{frame}
 
-\begin{frame}{\textbf{2.5.1. Xuất phát điểm: Log-Likelihood}}
-	Xét phân phối chuẩn 1 chiều với $\theta = \langle \mu, \sigma \rangle$. Hàm mật độ xác suất (PDF):
+\begin{frame}{\textbf{2.5.1. Log-Likelihood}}
+	Xét phân phối chuẩn 1 chiều với $\theta = \langle \mu, \sigma \rangle$. Hàm mật độ xác suất:
 	\[ \pi(z|\mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( - \frac{(z - \mu)^2}{2\sigma^2} \right) \]
 	
 	Lấy Logarit tự nhiên ($\log$) để đơn giản hóa việc tính đạo hàm:
@@ -276,7 +276,7 @@
 
 \begin{frame}{\textbf{2.5.4. Tại sao Search Gradient thông thường thất bại?}}
 	\begin{center}
-		\includegraphics[width=\textwidth]{vanillaexplode.png}
+		CHÈN GIF VÀO ĐÂY
 	\end{center}
 \end{frame}
 
@@ -295,7 +295,7 @@
 \end{frame}
 
 % --- 2.7 Ma trận Fisher ---
-\begin{frame}{\textbf{2.7. Ma trận Thông tin Fisher (F)}}
+\begin{frame}{\textbf{2.7. Ma trận thông tin Fisher (F)}}
 	Giải bài toán tối ưu trên bằng nhân tử Lagrange, ta thu được hướng cập nhật tối ưu (Natural Gradient):
 	\begin{equation}
 		\tilde{\nabla}_\theta J = F^{-1} \nabla_\theta J
@@ -314,7 +314,9 @@
 \end{frame}
 
 \begin{frame}{\textbf{2.7. Ma trận Thông tin Fisher (F)}}
-	Chèn animation vào đây.
+	\begin{center}
+		Chèn animation vào đây.
+	\end{center}
 \end{frame}
 
 % --- 2.8 Algorithm 3 (Canonical NES) ---
@@ -345,13 +347,11 @@
 	\centering
 	\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
 		\usebeamerfont{title}\huge \textbf{Chương 3:\\[0.5em] xNES: Exponential NES} \par
-		\vspace{0.3cm}
-		\small \textit{Giải pháp tối ưu dựa trên Hình học Thông tin và Hệ tọa độ tự nhiên}
 	\end{beamercolorbox}
 \end{frame}
 
 % --- SLIDE 3.1: GIỚI THIỆU & ĐỘNG LỰC ---
-\begin{frame}{\textbf{3.1. Động lực: Tại sao cần xNES?}}
+\begin{frame}{\textbf{3.1. Tại sao cần xNES?}}
 	\textbf{Hạn chế của các phiên bản trước:}
 	\begin{itemize}
 		\item \textbf{Mất tính bất biến:} Việc tham số hóa bằng phân rã Cholesky làm mất tính bất biến đối với phép biến đổi tuyến tính, trừ khi bước nhảy cực nhỏ.
@@ -378,7 +378,7 @@
 	\begin{itemize}
 		\item $\exp(M)$ luôn là ma trận xác định dương với mọi $M$ đối xứng.
 		\item Cho phép cập nhật trong không gian vector phẳng $\mathcal{S}_d$ mà không cần ràng buộc phức tạp.
-		\item Tuy nhiên, tính ma trận Fisher trực tiếp vẫn tốn $O(d^7)$ $\to$ Cần giải pháp thứ 2.
+		\item Tuy nhiên, tính ma trận Fisher trực tiếp vẫn tốn độ phức tạp rất lớn $\to$ Cần giải pháp thứ 2.
 	\end{itemize}
 \end{frame}
 
@@ -419,7 +419,7 @@
 	\[ \nabla_\delta \log p \approx \nabla_\delta \left( -\frac{1}{2} \|z - \delta\|^2 \right) \Big|_{\delta=0} \]
 	\[ = \nabla_\delta \left( -\frac{1}{2} (z^T z - 2z^T \delta + \delta^T \delta) \right) \Big|_{\delta=0} = z \]
 	
-	Áp dụng cho toàn bộ quần thể với trọng số tiện ích (utilities) $u_i$:
+	Áp dụng cho toàn bộ quần thể với trọng số (utilities) $u_i$:
 	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{block body}
 		\[ G_\delta = \sum_{i=1}^n u_i \cdot z_i \]
 	\end{beamercolorbox}
@@ -469,7 +469,7 @@
 \end{frame}
 
 % --- SLIDE 3.9: TỔNG KẾT THUẬT TOÁN ---
-\begin{frame}{\textbf{3.9. Tổng kết Thuật toán xNES}}
+\begin{frame}{\textbf{3.9. Tổng kết thuật toán xNES}}
 	\begin{algorithm}[H]
 		\small
 		\begin{algorithmic}[1]
@@ -488,7 +488,6 @@
 			\STATE \quad $B \leftarrow B \cdot \exp(\eta_B G_B / 2)$
 			\ENDLOOP
 		\end{algorithmic}
-		\caption{xNES (Glasmachers et al., 2010)}
 	\end{algorithm}
 \end{frame}
 	
@@ -519,24 +518,24 @@
 		\end{exampleblock}
 	\end{frame}
 	
-	\begin{frame}{\textbf{4.2. Thiết lập thực nghiệm}}
+	\begin{frame}{\textbf{4.2. Thực nghiệm}}
 		\textbf{Bài toán:} Tối ưu hóa hàm \textbf{Rastrigin} với $d=2$.
 		\[ f(\mathbf{x}) = 10d + \sum_{i=1}^{d} [x_i^2 - 10\cos(2\pi x_i)] \]
 		\begin{itemize}
 			\item \textbf{Đặc điểm:} Non-convex, cực kỳ nhiều bẫy local minima.
 			\item \textbf{Mục tiêu:} Tìm Global Minimum tại $\mathbf{x} = \mathbf{0}, f(\mathbf{x}) = 0$.
 		\end{itemize}
-		\textbf{Cấu hình thuật toán:}
-		\begin{itemize}
-			\item \textbf{NES:} Gaussian $\mathcal{N}(\mu, \sigma^2 I)$, $\lambda=50$, Rank-based Utilities.
-			\item \textbf{CMA-ES:} Cấu hình chuẩn (thư viện \texttt{pycma}).
-			\item \textbf{Gradient Descent (GD):} Learning rate tối ưu, dùng analytic gradient.
-		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{\textbf{4.3. Kết quả hội tụ (Convergence Analysis) với d = 2}}	
+	\begin{frame}{\textbf{4.3. Kết quả với d = 2}}	
 		\begin{center}
-			\includegraphics[width=\textwidth]{rastrigin1.png}
+			CHÈN GIF VÀO ĐÂY
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{\textbf{4.3. Kết quả với d = 2}}	
+		\begin{center}
+			CHÈN GIF VÀO ĐÂY
 		\end{center}
 	\end{frame}
 	
@@ -544,7 +543,6 @@
 		\begin{enumerate}
 			\item NES cung cấp nền tảng toán học vững chắc cho tiến hóa thông qua Hình học thông tin.
 			\item Natural Gradient là chìa khóa để đạt được sự ổn định và tính bất biến.
-			\item xNES mang lại độ chính xác cao nhất, SNES mang lại hiệu suất cho các bài toán lớn.
 		\end{enumerate}
 		\vspace{0.5cm}
 		\centering

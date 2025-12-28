@@ -1,5 +1,5 @@
 \babel@toc {vietnamese}{}\relax 
-\beamer@sectionintoc {1}{Chương 1: Giới thiệu \& Bối cảnh}{3}{0}{1}
-\beamer@sectionintoc {2}{Chương 2: Cơ sở Toán học của NES}{9}{0}{2}
+\beamer@sectionintoc {1}{Chương 1: Giới thiệu}{3}{0}{1}
+\beamer@sectionintoc {2}{Chương 2: Cơ sở toán học}{9}{0}{2}
 \beamer@sectionintoc {3}{Chương 3: xNES - Exponential Natural Evolution Strategies}{24}{0}{3}
 \beamer@sectionintoc {4}{Chương 4: So sánh \& Kết luận}{34}{0}{4}
