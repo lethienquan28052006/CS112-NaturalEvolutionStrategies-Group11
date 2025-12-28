@@ -339,104 +339,158 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% CHƯƠNG 3
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Chương 3: Các phiên bản "Đỉnh cao" của họ NES}
+\section{Chương 3: xNES - Exponential Natural Evolution Strategies}
+
+\begin{frame}
+	\centering
+	\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}\huge \textbf{Chương 3:\\[0.5em] xNES: Exponential NES} \par
+		\vspace{0.3cm}
+		\small \textit{Giải pháp tối ưu dựa trên Hình học Thông tin và Hệ tọa độ tự nhiên}
+	\end{beamercolorbox}
+\end{frame}
+
+% --- SLIDE 3.1: GIỚI THIỆU & ĐỘNG LỰC ---
+\begin{frame}{\textbf{3.1. Động lực: Tại sao cần xNES?}}
+	\textbf{Hạn chế của các phiên bản trước:}
+	\begin{itemize}
+		\item \textbf{Mất tính bất biến:} Việc tham số hóa bằng phân rã Cholesky làm mất tính bất biến đối với phép biến đổi tuyến tính, trừ khi bước nhảy cực nhỏ.
+		\item \textbf{Hội tụ sớm:} Thường gặp khó khăn với các hàm phức tạp (như Rosenbrock) trong số chiều lớn.
+		\item \textbf{Chi phí tính toán:} Việc tính nghịch đảo ma trận Fisher rất tốn kém ($O(d^3)$ đến $O(d^6)$).
+	\end{itemize}
 	
-	\begin{frame}
-		\centering
-		\begin{beamercolorbox}[sep=16pt,center,shadow=true,rounded=true]{title}
-			\usebeamerfont{title}\huge \textbf{Chương 3:\\[0.5em] Các phiên bản "Đỉnh cao" của họ NES} \par
-		\end{beamercolorbox}
-	\end{frame}
+	\textbf{Mục tiêu của xNES:}
+	\begin{enumerate}
+		\item Khôi phục hoàn toàn tính bất biến tuyến tính.
+		\item Đảm bảo ma trận hiệp phương sai luôn xác định dương một cách tự nhiên.
+		\item Loại bỏ hoàn toàn việc tính ma trận Fisher (nhờ hệ tọa độ tự nhiên).
+	\end{enumerate}
+\end{frame}
+
+% --- SLIDE 3.2: GIẢI PHÁP 1 - EXPONENTIAL PARAMETERIZATION ---
+\begin{frame}{\textbf{3.2. Tham số hóa hàm mũ}}
+	\textbf{Vấn đề:} Cập nhật cộng $C \leftarrow C + \delta C$ có thể làm ma trận $C$ không còn xác định dương.
 	
-	\begin{frame}{\textbf{3.1. xNES (Exponential NES)}}
-		\textbf{Đặc trưng:} Sử dụng ma trận hiệp phương sai đầy đủ (\textit{Full Covariance}), cho phép học mối tương quan giữa các chiều.
-		\vspace{0.2cm}
-		
-		\textbf{Quy trình chi tiết (xNES Pipeline):}
-		\begin{enumerate}
-			\item \textbf{Khởi tạo:} Tâm $\mu$ và ma trận hiệp phương sai thông qua $\sigma$ và $B$ (với $A = \sigma B$ và $B$ có $\det(B)=1$).
-			\item \textbf{Sinh mẫu chuẩn:} Lấy $\lambda$ mẫu $s_k \sim \mathcal{N}(0, I)$.
-			\item \textbf{Biến đổi mẫu:} Tạo các cá thể $z_k = \mu + \sigma B s_k$.
-			\item \textbf{Đánh giá:} Tính $f(z_k)$ và quy đổi sang Utilities $u_k$ dựa trên hạng.
-			\item \textbf{Tính Gradient cục bộ:} Tính đạo hàm cho $\mu, \sigma$ và ma trận $B$ trong hệ tọa độ tự nhiên (nơi $F=I$).
-			\item \textbf{Cập nhật kiểu nhân (Exponential Update):} 
-			\begin{itemize}
-				\item $\mu \leftarrow \mu + \eta_\mu \sigma B \nabla_\delta$
-				\item $\sigma \leftarrow \sigma \cdot \exp(\frac{\eta_\sigma}{2} \nabla_\sigma)$
-				\item $B \leftarrow B \cdot \exp(\eta_B \nabla_B)$
-			\end{itemize}
-		\end{enumerate}
-	\end{frame}
+	\textbf{Giải pháp:} Sử dụng ánh xạ mũ từ không gian ma trận đối xứng $\mathcal{S}_d$ sang đa tạp ma trận xác định dương $\mathcal{P}_d$.
+	\[ \exp: \mathcal{S}_d \to \mathcal{P}_d, \quad M \mapsto \sum_{n=0}^\infty \frac{M^n}{n!} \]
 	
-	\begin{frame}{\textbf{3.2. Thuật toán xNES (Pseudo-code)}}
-		\begin{algorithm}[H]
-			\begin{algorithmic}[1]
-				\STATE Sample $s_k \sim \mathcal{N}(0, I)$ for $k=1 \dots \lambda$
-				\STATE $z_k \leftarrow \mu + \sigma B s_k$
-				\STATE Compute gradients for local coordinates:
-				\STATE $\nabla_\delta \leftarrow \sum u_k s_k$, \quad $\nabla_\sigma \leftarrow \sum u_k (\|s_k\|^2 - d)/d$
-				\STATE $\nabla_B \leftarrow \sum u_k (s_k s_k^T - I - \frac{\|s_k\|^2 - d}{d} I)$
-				\STATE $\mu \leftarrow \mu + \eta_\mu \sigma B \nabla_\delta$
-				\STATE $\sigma \leftarrow \sigma \cdot \exp(\frac{\eta_\sigma}{2} \nabla_\sigma)$
-				\STATE $B \leftarrow B \cdot \exp(\eta_B \nabla_B)$ \COMMENT{Matrix exponential}
-			\end{algorithmic}
-			\caption{Exponential NES (xNES)}
-		\end{algorithm}
-	\end{frame}
+	\textbf{Lợi ích:}
+	\begin{itemize}
+		\item $\exp(M)$ luôn là ma trận xác định dương với mọi $M$ đối xứng.
+		\item Cho phép cập nhật trong không gian vector phẳng $\mathcal{S}_d$ mà không cần ràng buộc phức tạp.
+		\item Tuy nhiên, tính ma trận Fisher trực tiếp vẫn tốn $O(d^7)$ $\to$ Cần giải pháp thứ 2.
+	\end{itemize}
+\end{frame}
+
+% --- SLIDE 3.3: GIẢI PHÁP 2 - NATURAL COORDINATES ---
+\begin{frame}{\textbf{3.3. Hệ tọa độ tự nhiên (Natural Coordinates)}}
+	Thay vì dùng tọa độ toàn cục, tại mỗi bước lặp, ta chuyển sang hệ tọa độ cục bộ nơi phân phối hiện tại là chuẩn tắc $\mathcal{N}(0, I)$.
 	
-	\begin{frame}{\textbf{3.3. SNES (Separable NES)}}
-		\textbf{Đặc trưng:} Giả định các biến độc lập (\textit{Diagonal Covariance}). Phù hợp cho bài toán rất lớn (high-dimensional).
-		\vspace{0.2cm}
-		\textbf{Quy trình chi tiết (SNES Pipeline):}
-		\begin{enumerate}
-			\item \textbf{Khởi tạo:} Vector trung bình $\mu$ và vector độ lệch chuẩn $\sigma$ (cùng số chiều $d$).
-			\item \textbf{Sinh mẫu:} Lấy $\lambda$ mẫu $s_k \sim \mathcal{N}(0, I)$.
-			\item \textbf{Biến đổi mẫu:} $z_{k,i} = \mu_i + \sigma_i s_{k,i}$ (tính toán độc lập trên từng chiều $i$).
-			\item \textbf{Đánh giá:} Tính $f(z_k)$ và quy đổi sang Utilities $u_k$.
-			\item \textbf{Tính Gradient thành phần:} 
-			\begin{itemize}
-				\item $\nabla_{\mu,i} = \sum u_k s_{k,i}$
-				\item $\nabla_{\sigma,i} = \sum u_k (s_{k,i}^2 - 1)$
-			\end{itemize}
-			\item \textbf{Cập nhật độc lập:}
-			\begin{itemize}
-				\item $\mu_i \leftarrow \mu_i + \eta_\mu \sigma_i \nabla_{\mu,i}$
-				\item $\sigma_i \leftarrow \sigma_i \cdot \exp(\frac{\eta_\sigma}{2} \nabla_{\sigma,i})$
-			\end{itemize}
-		\end{enumerate}
-	\end{frame}
+	Gọi phân phối hiện tại là $\mathcal{N}(\mu, A A^T)$. Ta biểu diễn phân phối mới thông qua biến thiên $(\delta, M)$:
+	\begin{equation}
+		\mu_{new} = \mu + A \delta
+	\end{equation}
+	\begin{equation}
+		A_{new} = A \cdot \exp\left(\frac{1}{2}M\right)
+	\end{equation}
 	
-	\begin{frame}{\textbf{3.4. Thuật toán SNES (Pseudo-code)}}
-		\begin{algorithm}[H]
-			\begin{algorithmic}[1]
-				\STATE Sample $s_k \sim \mathcal{N}(0, I)$ for $k=1 \dots \lambda$
-				\STATE $z_{k,i} \leftarrow \mu_i + \sigma_i s_{k,i}$ for each dimension $i$
-				\STATE Compute element-wise gradients:
-				\STATE $\nabla_{\mu,i} \leftarrow \sum_{k=1}^\lambda u_k s_{k,i}$
-				\STATE $\nabla_{\sigma,i} \leftarrow \sum_{k=1}^\lambda u_k (s_{k,i}^2 - 1)$
-				\STATE $\mu_i \leftarrow \mu_i + \eta_\mu \sigma_i \nabla_{\mu,i}$
-				\STATE $\sigma_i \leftarrow \sigma_i \cdot \exp(\frac{\eta_\sigma}{2} \nabla_{\sigma,i})$
-			\end{algorithmic}
-			\caption{Separable NES (SNES)}
-		\end{algorithm}
-	\end{frame}
+	\textbf{Tính chất:}
+	Tại điểm gốc $(\delta=0, M=0)$, ma trận Fisher là ma trận đơn vị: $\mathbf{F = I}$.
+	\[ \Rightarrow \nabla_{nat} J = F^{-1} \nabla J = \nabla J \]
+	\textit{Gradient tự nhiên chính là Gradient thường trong hệ tọa độ này!}
+\end{frame}
+
+% --- SLIDE 3.4: HÀM MẬT ĐỘ TRONG HỆ TỌA ĐỘ MỚI ---
+\begin{frame}{\textbf{3.4. Log-Likelihood trong tọa độ tự nhiên}}
+	Với mẫu $x = \mu + A z$ (với $z \sim \mathcal{N}(0, I)$), mật độ xác suất trong hệ tọa độ $(\delta, M)$ là:
 	
-	\begin{frame}{\textbf{3.5. So sánh xNES vs SNES}}
-		\centering
-		\begin{table}
-			\begin{tabular}{l p{3.5cm} p{3.5cm}}
-				\toprule
-				\textbf{Đặc điểm} & \textbf{xNES (Exponential)} & \textbf{SNES (Separable)} \\
-				\midrule
-				\textbf{Cấu trúc $\Sigma$} & Ma trận đầy đủ & Ma trận đường chéo \\
-				\textbf{Độ phức tạp} & $O(d^3)$ & $O(d)$ \\
-				\textbf{Học tương quan} & Có (Rất tốt) & Không \\
-				\textbf{Khả năng mở rộng} & Bài toán vừa ($d < 500$) & Bài toán lớn ($d > 10^6$) \\
-				\textbf{Tính bất biến} & Bất biến với phép quay & Không bất biến với phép quay \\
-				\bottomrule
-			\end{tabular}
-		\end{table}
-	\end{frame}
+	\[ \log p(x | \delta, M) = -\frac{d}{2}\log(2\pi) - \text{tr}(\log A_{new}) - \frac{1}{2} \| A_{new}^{-1}(x - \mu_{new}) \|^2 \]
+	
+	Thay thế các tham số từ phương trình (1) và (2), và xấp xỉ Taylor bậc 1 quanh 0:
+	\[ \log p(z | \delta, M) \approx C - \underbrace{\frac{1}{2}\text{tr}(M)}_{\text{từ } \det} - \underbrace{\frac{1}{2} \| (I - \frac{1}{2}M)(z - \delta) \|^2}_{\text{từ số mũ}} \]
+	
+	Ta sẽ dùng công thức này để tính đạo hàm theo $\delta$ và $M$.
+\end{frame}
+
+% --- SLIDE 3.5: DẪN XUẤT GRADIENT VỊ TRÍ ---
+\begin{frame}{\textbf{3.5. Dẫn xuất Gradient vị trí ($G_\delta$)}}
+	Lấy đạo hàm log-likelihood theo $\delta$ tại $\delta=0, M=0$:
+	
+	\[ \nabla_\delta \log p \approx \nabla_\delta \left( -\frac{1}{2} \|z - \delta\|^2 \right) \Big|_{\delta=0} \]
+	\[ = \nabla_\delta \left( -\frac{1}{2} (z^T z - 2z^T \delta + \delta^T \delta) \right) \Big|_{\delta=0} = z \]
+	
+	Áp dụng cho toàn bộ quần thể với trọng số tiện ích (utilities) $u_i$:
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{block body}
+		\[ G_\delta = \sum_{i=1}^n u_i \cdot z_i \]
+	\end{beamercolorbox}
+\end{frame}
+
+% --- SLIDE 3.6: DẪN XUẤT GRADIENT MA TRẬN ---
+\begin{frame}{\textbf{3.6. Dẫn xuất Gradient ma trận ($G_M$)}}
+	Lấy đạo hàm log-likelihood theo $M$ (bỏ qua các số hạng bậc cao):
+	
+	\[ \nabla_M \log p \approx \nabla_M \left( -\frac{1}{2}\text{tr}(M) - \frac{1}{2} z^T (I - M) z \right) \]
+	\[ = -\frac{1}{2}I + \frac{1}{2} z z^T = \frac{1}{2} (z z^T - I) \]
+	
+	Tổng hợp trên quần thể (đưa hằng số 1/2 ra ngoài):
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{block body}
+		\[ G_M = \sum_{i=1}^n u_i \cdot (z_i z_i^T - I) \]
+	\end{beamercolorbox}
+\end{frame}
+
+% --- SLIDE 3.7: PHÂN RÃ KHÔNG GIAN THAM SỐ ---
+\begin{frame}{\textbf{3.7. Phân rã tham số (Decomposition)}}
+	Để kiểm soát tốt hơn, xNES phân rã không gian cập nhật thành hai phần trực giao:
+	\[ \mathbb{R}^d \times \mathcal{S}_d = \underbrace{\mathbb{R}^d}_{(\mu)} \times \underbrace{\mathcal{S}^d}_{(\sigma)} \times \underbrace{\mathcal{S}_d^\perp}_{(B)} \]
+	
+	1. \textbf{Scale Update ($\sigma$):} Hướng đẳng hướng (Isotropic), thay đổi kích thước bước nhảy.
+	\[ G_\sigma = \frac{\text{tr}(G_M)}{d} \]
+	
+	2. \textbf{Shape Update ($B$):} Hướng lệch (Anisotropic), thay đổi hình dạng phân phối (với trace = 0).
+	\[ G_B = G_M - G_\sigma \cdot I \]
+	
+	\textit{Điều này cho phép dùng learning rate riêng biệt ($\eta_\sigma, \eta_B$) cho kích thước và hình dáng.}
+\end{frame}
+
+% --- SLIDE 3.8: CÔNG THỨC CẬP NHẬT CUỐI CÙNG ---
+\begin{frame}{\textbf{3.8. Quy tắc cập nhật (Update Rules)}}
+	Kết hợp các gradient đã dẫn xuất với phép ánh xạ mũ:
+	
+	\textbf{1. Cập nhật tâm ($\mu$):}
+	\[ \mu_{new} = \mu + \eta_\mu \cdot \sigma B \cdot G_\delta \]
+	
+	\textbf{2. Cập nhật quy mô ($\sigma$) - Exponential:}
+	\[ \sigma_{new} = \sigma \cdot \exp\left( \frac{\eta_\sigma}{2} G_\sigma \right) \]
+	
+	\textbf{3. Cập nhật ma trận biến đổi ($B$) - Exponential Map:}
+	\[ B_{new} = B \cdot \exp\left( \frac{\eta_B}{2} G_B \right) \]
+	
+	\footnotesize \textit{*Lưu ý: $A = \sigma B$.}
+\end{frame}
+
+% --- SLIDE 3.9: TỔNG KẾT THUẬT TOÁN ---
+\begin{frame}{\textbf{3.9. Tổng kết Thuật toán xNES}}
+	\begin{algorithm}[H]
+		\small
+		\begin{algorithmic}[1]
+			\STATE \textbf{Init:} $\mu$, $\sigma$, $B=I$
+			\STATE \textbf{Compute utilities:} $u_i$ based on rank
+			\LOOP
+			\STATE Sample $z_i \sim \mathcal{N}(0, I)$ and map $x_i = \mu + \sigma B z_i$
+			\STATE Evaluate $f(x_i)$ and sort to match utilities
+			\STATE \textbf{Compute Natural Gradients (in local coords):}
+			\STATE \quad $G_\delta = \sum u_i z_i$
+			\STATE \quad $G_M = \sum u_i (z_i z_i^T - I)$
+			\STATE \quad $G_\sigma = \text{tr}(G_M)/d, \quad G_B = G_M - G_\sigma I$
+			\STATE \textbf{Update Parameters:}
+			\STATE \quad $\mu \leftarrow \mu + \eta_\mu \sigma B G_\delta$
+			\STATE \quad $\sigma \leftarrow \sigma \cdot \exp(\eta_\sigma G_\sigma / 2)$
+			\STATE \quad $B \leftarrow B \cdot \exp(\eta_B G_B / 2)$
+			\ENDLOOP
+		\end{algorithmic}
+		\caption{xNES (Glasmachers et al., 2010)}
+	\end{algorithm}
+\end{frame}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% CHƯƠNG 4

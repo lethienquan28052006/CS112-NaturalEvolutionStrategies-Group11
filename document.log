@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  28 DEC 2025 20:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  28 DEC 2025 20:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1430,106 +1430,154 @@ Package pdftex.def Info: logo_uit.jpg  used on input line 338.
  [23
 
 ]
+
+LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <9> not available
+(Font)              Font shape `T5/cmss/m/sl' tried instead on input line 351.
+
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 349.
+Package pdftex.def Info: logo_uit.jpg  used on input line 351.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
- [24
+[24
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 369.
+Package pdftex.def Info: logo_uit.jpg  used on input line 368.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [25
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 385.
+Package pdftex.def Info: logo_uit.jpg  used on input line 383.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [26
 
 ]
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 401.
+
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <7> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 401.
+
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 401.
+
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 407.
+Package pdftex.def Info: logo_uit.jpg  used on input line 401.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [27
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 422.
+Package pdftex.def Info: logo_uit.jpg  used on input line 413.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [28
 
 ]
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <14.4> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 426.
+
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 439.
+Package pdftex.def Info: logo_uit.jpg  used on input line 426.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [29
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 451.
+Package pdftex.def Info: logo_uit.jpg  used on input line 439.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [30
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 466.
+Package pdftex.def Info: logo_uit.jpg  used on input line 453.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [31
 
 ]
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
 
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <7> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
+LaTeX Font Warning: Font shape `T5/cmss/m/it' in size <8> not available
+(Font)              Font shape `T5/cmss/m/sl' tried instead on input line 469.
 
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <8> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 469.
 
-LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
-81.
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 469.
+
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 469.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+[32
+
+]
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <9> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 493.
+
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 493.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [33
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 505.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [34
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 520.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [35
+
+]
+LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 5
+35.
 
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 481.
+Package pdftex.def Info: logo_uit.jpg  used on input line 535.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
 
-[32
+[36
 
 ]
-<rastrigin1.png, id=414, 708.246pt x 495.0495pt>
+<rastrigin1.png, id=467, 708.246pt x 495.0495pt>
 File: rastrigin1.png Graphic file (type png)
 <use rastrigin1.png>
-Package pdftex.def Info: rastrigin1.png  used on input line 487.
+Package pdftex.def Info: rastrigin1.png  used on input line 541.
 (pdftex.def)             Requested size: 344.19533pt x 240.5897pt.
 
-Overfull \vbox (35.83795pt too high) detected at line 487
+Overfull \vbox (35.83795pt too high) detected at line 541
  []
 
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 487.
+Package pdftex.def Info: logo_uit.jpg  used on input line 541.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
-[33
+[37
 
  <./rastrigin1.png>]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 498.
+Package pdftex.def Info: logo_uit.jpg  used on input line 552.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
- [34
+ [38
 
 ]
 \tf@nav=\write6
@@ -1547,16 +1595,16 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `document.out' has not changed.
-(rerunfilecheck)             Checksum: F548A8CC83114678E784403A9052788D;1015.
+(rerunfilecheck)             Checksum: 695AAB9F794EFFF2429021DCA76720E5;1056.
  ) 
 Here is how much of TeX's memory you used:
- 24287 strings out of 474486
- 473010 string characters out of 5743755
- 1942542 words of memory out of 5000000
- 45947 multiletter control sequences out of 15000+600000
- 593920 words of font info for 115 fonts, out of 8000000 for 9000
+ 24339 strings out of 474486
+ 473745 string characters out of 5743755
+ 1939542 words of memory out of 5000000
+ 45983 multiletter control sequences out of 15000+600000
+ 601627 words of font info for 133 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,16n,123p,385b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,16n,123p,401b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cmextra/cmex9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/typ
@@ -1565,31 +1613,35 @@ fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ADMIN/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/ADMIN/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ADMIN/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ADM
-IN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/U
-sers/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.
-pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/ADMIN/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Users/ADMIN/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/A
-DMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:
-/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7
-.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/symbols/msbm10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnss10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnss12.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/vntex/vnr/vnss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/vntex/vnr/vnssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
-type1/vntex/vnr/vnssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts
-/type1/vntex/vnr/vntt10.pfb>
-Output written on document.pdf (34 pages, 1010723 bytes).
+IN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/U
+sers/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.p
+fb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmss10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/ADMIN/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi12.pfb><C:/Users/ADMIN/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/A
+DMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C
+:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmsy5.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmsy7.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ADMIN/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/vntex/vnr/vnss10.pfb><C:/Users/ADMIN/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/vntex/vnr/vnss12.pfb><C:/Users/ADMIN/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/vntex/vnr/vnss8.pfb><C:/Users/ADMIN/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/vntex/vnr/vnss9.pfb><C:/Users/ADMIN/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/vntex/vnr/vnssbx10.pfb><C:/Users/ADMIN/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/vntex/vnr/vnssi10.pfb><C:/Users/ADMIN/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/vntex/vnr/vnssi8.pfb><C:/Users/ADMIN/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/vntex/vnr/vnssi9.pfb><C:/Users/ADMIN/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/vntex/vnr/vntt10.pfb>
+Output written on document.pdf (38 pages, 1068009 bytes).
 PDF statistics:
- 557 PDF objects out of 1000 (max. 8388607)
- 73 named destinations out of 1000 (max. 500000)
- 444 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 630 PDF objects out of 1000 (max. 8388607)
+ 81 named destinations out of 1000 (max. 500000)
+ 510 words of extra memory for PDF output out of 10000 (max. 10000000)
 
