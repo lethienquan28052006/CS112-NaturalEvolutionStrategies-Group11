@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  28 DEC 2025 20:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  28 DEC 2025 20:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1357,133 +1357,179 @@ Package pdftex.def Info: logo_uit.jpg  used on input line 212.
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 228.
+Package pdftex.def Info: logo_uit.jpg  used on input line 216.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [14
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 242.
+Package pdftex.def Info: logo_uit.jpg  used on input line 230.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [15
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 261.
+Package pdftex.def Info: logo_uit.jpg  used on input line 244.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [16
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 281.
+Package pdftex.def Info: logo_uit.jpg  used on input line 263.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [17
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 292.
+Package pdftex.def Info: logo_uit.jpg  used on input line 275.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [18
 
 ]
+<vanillaexplode.png, id=268, 1148.3703pt x 426.393pt>
+File: vanillaexplode.png Graphic file (type png)
+<use vanillaexplode.png>
+Package pdftex.def Info: vanillaexplode.png  used on input line 281.
+(pdftex.def)             Requested size: 344.19533pt x 127.80177pt.
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 312.
+Package pdftex.def Info: logo_uit.jpg  used on input line 281.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [19
 
-]
+ <./vanillaexplode.png>]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 328.
+Package pdftex.def Info: logo_uit.jpg  used on input line 295.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [20
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 350.
+Package pdftex.def Info: logo_uit.jpg  used on input line 314.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [21
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 365.
+Package pdftex.def Info: logo_uit.jpg  used on input line 318.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
-
-[22
+ [22
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 382.
+Package pdftex.def Info: logo_uit.jpg  used on input line 338.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [23
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 394.
+Package pdftex.def Info: logo_uit.jpg  used on input line 349.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [24
 
 ]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 409.
+Package pdftex.def Info: logo_uit.jpg  used on input line 369.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
  [25
 
 ]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 385.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [26
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 407.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [27
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 422.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [28
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 439.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [29
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 451.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [30
+
+]
+File: logo_uit.jpg Graphic file (type jpg)
+<use logo_uit.jpg>
+Package pdftex.def Info: logo_uit.jpg  used on input line 466.
+(pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
+ [31
+
+]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 424.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <7> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 424.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 424.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 481.
 
 LaTeX Font Info:    Trying to load font information for T5+cmtt on input line 4
-24.
+81.
 
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/vntex\t5cmtt.fd
 File: t5cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 424.
+Package pdftex.def Info: logo_uit.jpg  used on input line 481.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
 
-[26
+[32
 
 ]
-<rastrigin1.png, id=366, 708.246pt x 495.0495pt>
+<rastrigin1.png, id=414, 708.246pt x 495.0495pt>
 File: rastrigin1.png Graphic file (type png)
 <use rastrigin1.png>
-Package pdftex.def Info: rastrigin1.png  used on input line 430.
+Package pdftex.def Info: rastrigin1.png  used on input line 487.
 (pdftex.def)             Requested size: 344.19533pt x 240.5897pt.
 
-Overfull \vbox (35.83795pt too high) detected at line 430
+Overfull \vbox (35.83795pt too high) detected at line 487
  []
 
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 430.
+Package pdftex.def Info: logo_uit.jpg  used on input line 487.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
-[27
+[33
 
  <./rastrigin1.png>]
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 441.
+Package pdftex.def Info: logo_uit.jpg  used on input line 498.
 (pdftex.def)             Requested size: 17.49057pt x 14.22636pt.
- [28
+ [34
 
 ]
 \tf@nav=\write6
@@ -1504,44 +1550,46 @@ Package rerunfilecheck Info: File `document.out' has not changed.
 (rerunfilecheck)             Checksum: F548A8CC83114678E784403A9052788D;1015.
  ) 
 Here is how much of TeX's memory you used:
- 24242 strings out of 474486
- 472373 string characters out of 5743755
+ 24287 strings out of 474486
+ 473010 string characters out of 5743755
  1942542 words of memory out of 5000000
- 45919 multiletter control sequences out of 15000+600000
- 590318 words of font info for 104 fonts, out of 8000000 for 9000
+ 45947 multiletter control sequences out of 15000+600000
+ 593920 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,123p,385b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,16n,123p,385b,859s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmex10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cmextra/cmex9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/typ
 e1/public/amsfonts/cm/cmmi10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/
-fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/ADMIN/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ADMIN/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ADMIN/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/ADMI
-N/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/U
-sers/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.p
-fb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/ADMIN/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Users/ADMIN/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/ADMIN/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/AD
-MIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/
-Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/v
-nss10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/v
-nss12.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/v
-nss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vn
-ss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vns
-sbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/v
-nssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/
-vntt10.pfb>
-Output written on document.pdf (28 pages, 878351 bytes).
+fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ADMIN/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/ADMIN/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/ADMIN/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/ADM
+IN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/U
+sers/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.
+pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/ADMIN/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi9.pfb><C:/Users/ADMIN/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/A
+DMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:
+/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7
+.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmsy9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/symbols/msbm10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
+type1/vntex/vnr/vnss10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
+type1/vntex/vnr/vnss12.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
+type1/vntex/vnr/vnss8.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/vntex/vnr/vnss9.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/vntex/vnr/vnssbx10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/
+type1/vntex/vnr/vnssi10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts
+/type1/vntex/vnr/vntt10.pfb>
+Output written on document.pdf (34 pages, 1010723 bytes).
 PDF statistics:
- 499 PDF objects out of 1000 (max. 8388607)
- 61 named destinations out of 1000 (max. 500000)
- 439 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 557 PDF objects out of 1000 (max. 8388607)
+ 73 named destinations out of 1000 (max. 500000)
+ 444 words of extra memory for PDF output out of 10000 (max. 10000000)
 

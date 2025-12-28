@@ -213,18 +213,71 @@
 
 % --- 2.5 Hạn chế của Plain Gradient ---
 \begin{frame}{\textbf{2.5. Tại sao Search Gradient thông thường thất bại?}}
+\end{frame}
+
+\begin{frame}{\textbf{2.5.1. Xuất phát điểm: Log-Likelihood}}
+	Xét phân phối chuẩn 1 chiều với $\theta = \langle \mu, \sigma \rangle$. Hàm mật độ xác suất (PDF):
+	\[ \pi(z|\mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} \exp\left( - \frac{(z - \mu)^2}{2\sigma^2} \right) \]
 	
+	Lấy Logarit tự nhiên ($\log$) để đơn giản hóa việc tính đạo hàm:
+	\begin{align*}
+		\log \pi(z|\theta) &= \log\left( (2\pi)^{-1/2} \right) + \log(\sigma^{-1}) + \log\left( e^{ - \frac{(z - \mu)^2}{2\sigma^2} } \right) \\
+		&= \underbrace{-\frac{1}{2}\log(2\pi)}_{\text{Hằng số } C} - \log(\sigma) - \frac{1}{2}\sigma^{-2}(z - \mu)^2
+	\end{align*}
 	
-	Xét trường hợp 1 chiều đơn giản với $\theta = (\mu, \sigma)$. Gradient đối với $\sigma$ là:
-	\[ \nabla_\sigma J \propto \frac{(z-\mu)^2 - \sigma^2}{\sigma^3} \]
+	\textbf{Hàm mục tiêu cần đạo hàm:}
+	\[ L = C - \log(\sigma) - \frac{1}{2\sigma^2}(z - \mu)^2 \]
+\end{frame}
+
+\begin{frame}{\textbf{2.5.2. Biến đổi 1: Đạo hàm theo $\mu$}}
+	Ta lấy đạo hàm riêng của $L$ theo $\mu$. Áp dụng quy tắc chuỗi (chain rule) cho cụm $(z-\mu)^2$:
+	\[ \frac{\partial L}{\partial \mu} = \frac{\partial}{\partial \mu} \left[ - \frac{1}{2\sigma^2}(z - \mu)^2 \right] \]
+	
+	Đặt $u = z - \mu \Rightarrow \frac{du}{d\mu} = -1$. Ta có:
+	\begin{align*}
+		\frac{\partial L}{\partial \mu} &= -\frac{1}{2\sigma^2} \cdot \frac{d}{du}(u^2) \cdot \frac{du}{d\mu} \\
+		&= -\frac{1}{2\sigma^2} \cdot (2u) \cdot (-1) \\
+		&= \frac{u}{\sigma^2} = \frac{z - \mu}{\sigma^2}
+	\end{align*}
+	
+	\textbf{Kết quả 1:} $\nabla_\mu \log \pi(z) = \frac{z - \mu}{\sigma^2}$
+\end{frame}
+
+\begin{frame}{\textbf{2.5.3. Biến đổi 2: Đạo hàm theo $\sigma$}}
+	Hàm mục tiêu: $L = C - \log(\sigma) - \frac{1}{2}(z - \mu)^2 \sigma^{-2}$.
+	
+	Đạo hàm từng thành phần theo $\sigma$:
+	\begin{itemize}
+		\item Đạo hàm của $-\log(\sigma)$ là: $-\frac{1}{\sigma}$
+		\item Đạo hàm của $\sigma^{-2}$ là: $-2\sigma^{-3}$
+	\end{itemize}
+	
+	Thay vào biểu thức:
+	\begin{align*}
+		\frac{\partial L}{\partial \sigma} &= -\frac{1}{\sigma} - \frac{1}{2}(z - \mu)^2 \cdot (-2\sigma^{-3}) \\
+		&= -\frac{1}{\sigma} + \frac{(z - \mu)^2}{\sigma^3}
+	\end{align*}
+	
+	Quy đồng mẫu số chung $\sigma^3$:
+	\[ \nabla_\sigma \log \pi(z) = \frac{-\sigma^2 + (z - \mu)^2}{\sigma^3} = \frac{(z - \mu)^2 - \sigma^2}{\sigma^3} \]
+\end{frame}
+
+\begin{frame}{\textbf{2.5.4. Tại sao Search Gradient thông thường thất bại?}}
+	Kết quả Gradient đối với $\sigma$:
+	\[ \nabla_\sigma J \propto \frac{(z - \mu)^2 - \sigma^2}{\sigma^3} \]
 	
 	\textbf{Sự mất ổn định:}
-	\begin{itemize}
-		\item Khi thuật toán cần hội tụ chính xác, $\sigma$ phải giảm dần ($\sigma \to 0$).
-		\item Tuy nhiên, độ lớn bước nhảy (step size) lại tỉ lệ nghịch với $\sigma^3$.
-		\item \textbf{Kết quả:} Khi $\sigma$ nhỏ, bước cập nhật trở nên khổng lồ ("Overshooting"). Thuật toán bị văng ra xa khỏi cực trị hoặc dao động mạnh.
-	\end{itemize}
-	\textit{Kết luận: Gradient Euclide không "Scale-invariant" (Bất biến theo tỷ lệ).}
+	\begin{enumerate}
+		\item \textbf{Yêu cầu hội tụ:} Khi thuật toán tinh chỉnh lời giải, $\sigma$ cần giảm dần về 0 ($\sigma \to 0$).
+		\item \textbf{Nghịch lý toán học:} Mẫu số là $\sigma^3$. Khi $\sigma$ tiến về 0, giá trị $\frac{1}{\sigma^3}$ tiến ra vô cùng ($\infty$).
+		\item \textbf{Hậu quả thực tế:} Gradient trở nên "bùng nổ". Bước cập nhật $\theta_{new} = \theta - \eta \nabla$ quá lớn khiến thuật toán văng xa khỏi cực trị.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{\textbf{2.5.4. Tại sao Search Gradient thông thường thất bại?}}
+	\begin{center}
+		\includegraphics[width=\textwidth]{vanillaexplode.png}
+	\end{center}
 \end{frame}
 
 % --- 2.6 Natural Gradient (Giải pháp) ---
@@ -258,6 +311,10 @@
 		\item Nó đóng vai trò như một bộ "tiền điều kiện" (Pre-conditioner).
 		\item Nó triệt tiêu ảnh hưởng của độ cong không gian tham số (ví dụ: nhân tử $1/\sigma^3$ sẽ bị $F$ triệt tiêu), giúp bước cập nhật ổn định bất kể $\sigma$ lớn hay nhỏ.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{\textbf{2.7. Ma trận Thông tin Fisher (F)}}
+	Chèn animation vào đây.
 \end{frame}
 
 % --- 2.8 Algorithm 3 (Canonical NES) ---
