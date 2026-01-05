@@ -1,177 +1,140 @@
-\documentclass{article}
+\documentclass[aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[vietnamese]{babel}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
+\usepackage{amsmath, amssymb, amsfonts}
 \usepackage{xcolor}
-\usepackage{tcolorbox}
-\usepackage{geometry}
 
-\geometry{a4paper, margin=1in}
+% Chọn theme
+\usetheme{Madrid}
+\usecolortheme{beaver}
+
+% Màu sắc
+\definecolor{explanationbg}{RGB}{245, 245, 245} % Màu xám rất nhạt
+\definecolor{explanationborder}{RGB}{178, 34, 34} % Màu đỏ gạch
+
+% Môi trường giải thích toán học chi tiết
+\newenvironment{explanation}{
+	\setbeamercolor{block title}{bg=explanationborder,fg=white}
+	\setbeamercolor{block body}{bg=explanationbg,fg=black}
+	\begin{block}{\textbf{Chi tiết dẫn xuất toán học}}
+		\scriptsize % Chữ nhỏ để chứa nhiều công thức
+		\setlength{\parskip}{0.5em}
+	}{
+	\end{block}
+}
+
+\title{Tối ưu hóa xNES: Dẫn xuất Toán học Chi tiết}
+\author{Phân tích thuật toán}
+\date{\today}
 
 \begin{document}
 	
-	\title{\textbf{Phân Tích Chi Tiết: Sự Thất Bại của Vanilla Search Gradient}}
-	\author{}
-	\date{}
-	\maketitle
+	% --- SLIDE 3.3 ---
+	\begin{frame}{\textbf{3.3. Hệ tọa độ tự nhiên (Natural Coordinates)}}
+		Định nghĩa phép cập nhật tham số thông qua ánh xạ mũ (Exponential Map):
+		
+		\begin{enumerate}
+			\item \textbf{Cập nhật Vị trí:} $\mu_{\text{new}} = \mu + A \cdot \delta$ \quad (9)
+			\item \textbf{Cập nhật Ma trận:} $A_{\text{new}} = A \cdot \exp\left(\frac{1}{2}M\right)$ \quad (10)
+		\end{enumerate}
+		
+		\begin{explanation}
+			\textbf{Tại sao dùng hàm mũ $\exp(M)$?}
+			\begin{itemize}
+				\item Ma trận hiệp phương sai $\Sigma = A A^T$ bắt buộc phải là \textit{đối xứng xác định dương}.
+				\item Nếu cộng trực tiếp ma trận ($A + \Delta A$), ta không đảm bảo được tính chất này.
+				\item Hàm mũ ma trận $\exp(X)$ luôn trả về ma trận xác định dương với mọi $X$ đối xứng. Do đó, công thức (10) đảm bảo $A_{new}$ luôn hợp lệ về mặt toán học mà không cần điều kiện ràng buộc nào khác.
+				\item Hệ số $\frac{1}{2}$ xuất hiện để khớp với định nghĩa $\Sigma_{new} = A_{new} A_{new}^T = A e^{M/2} e^{M/2} A^T = A e^M A^T$.
+			\end{itemize}
+		\end{explanation}
+	\end{frame}
 	
-	\section{Bối cảnh và Các Tham số cơ bản}
-	Trong phương pháp tìm kiếm dựa trên Gradient (Search Gradient), chúng ta không tối ưu hóa trực tiếp giá trị biến mà tối ưu hóa các tham số của một phân phối xác suất $\pi$. Mục tiêu là điều chỉnh phân phối này để tập trung vào các vùng có phần thưởng (reward) cao.
+	% --- SLIDE 3.4 ---
+	\begin{frame}{\textbf{3.4. Log-Likelihood trong tọa độ tự nhiên}}
+		Thay thế (9), (10) vào log-likelihood của phân phối chuẩn và dùng Taylor bậc 1:
+		
+		\[ J(\delta, M) \approx C - \underbrace{\frac{1}{2}\text{tr}(M)}_{\text{Phần 1}} - \underbrace{\frac{1}{2} \| (I - \frac{1}{2}M)(z - \delta) \|^2}_{\text{Phần 2}} \]
+		
+		\begin{explanation}
+			\textbf{Các bước biến đổi cụ thể:}
+			\begin{enumerate}
+				\item \textbf{Phần 1 (Từ định thức):} $\log(\det(A_{new})) = \text{tr}(\log A_{new})$.
+				\\ Thay (10): $\text{tr}(\log(A \cdot e^{M/2})) = \text{tr}(\log A + \frac{1}{2}M) = \text{Const} + \frac{1}{2}\text{tr}(M)$.
+				\item \textbf{Phần 2 (Từ khoảng cách):} $x - \mu_{new} = (\mu + Az) - (\mu + A\delta) = A(z-\delta)$.
+				\\ Ma trận nghịch đảo: $A_{new}^{-1} = (A e^{M/2})^{-1} = e^{-M/2} A^{-1}$.
+				\\ Khoảng cách chuẩn hóa: $A_{new}^{-1}(x-\mu_{new}) = e^{-M/2} A^{-1} A (z-\delta) = e^{-M/2}(z-\delta)$.
+				\item \textbf{Xấp xỉ Taylor:} Với $M \approx 0$, ta có $e^{-M/2} \approx I - \frac{1}{2}M$.
+				\\ Thay vào bình phương độ dài vector: $\| (I - \frac{1}{2}M)(z-\delta) \|^2$.
+			\end{enumerate}
+		\end{explanation}
+	\end{frame}
 	
-	\begin{itemize}
-		\item $\theta = (\mu, \sigma)$: Bộ tham số định nghĩa phân phối.
-		\begin{itemize}
-			\item $\mu$ (Mean): Giá trị trung bình, xác định vị trí trung tâm của vùng tìm kiếm.
-			\item $\sigma$ (Standard Deviation): Độ lệch chuẩn, xác định phạm vi thăm dò (exploration) của thuật toán.
-		\end{itemize}
-		\item $z$: Một mẫu (sample) cụ thể được rút ra từ phân phối $\pi_\theta$. Trong tìm kiếm, $z$ đại diện cho một giải pháp ứng viên.
-		\item $\pi$ (hoặc $\pi_\theta$): Chính sách hoặc phân phối xác suất (thường là phân phối chuẩn Gaussian).
-	\end{itemize}
+	% --- SLIDE 3.5 ---
+	\begin{frame}{\textbf{3.5. Dẫn xuất Gradient vị trí ($G_\delta$)}}
+		Đạo hàm theo $\delta$ tại điểm gốc ($\delta=0, M=0$):
+		\[ \nabla_\delta J \approx \nabla_\delta \left( -\frac{1}{2} \|z - \delta\|^2 \right) \Big|_{\delta=0} = z \]
+		\vspace{-0.5em}
+		\begin{beamercolorbox}[sep=4pt,center,shadow=true,rounded=true, wd=0.5\textwidth]{block body}
+			$G_\delta = \sum u_i z_i$
+		\end{beamercolorbox}
+		
+		\begin{explanation}
+			\textbf{Chi tiết đạo hàm vector:}
+			\begin{itemize}
+				\item Đặt $f(\delta) = -\frac{1}{2} \|z - \delta\|^2 = -\frac{1}{2} (z - \delta)^T (z - \delta)$.
+				\item Khai triển: $-\frac{1}{2} (z^T z - 2z^T \delta + \delta^T \delta)$.
+				\item Đạo hàm theo $\delta$:
+				\[ \frac{\partial}{\partial \delta} \dots = -\frac{1}{2} (0 - 2z + 2\delta) = z - \delta \]
+				\item Tại điểm bắt đầu cập nhật, ta chưa di chuyển nên $\delta = 0$.
+				\[ \Rightarrow \text{Gradient} = z - 0 = z \]
+			\end{itemize}
+		\end{explanation}
+	\end{frame}
 	
-	\section{Công thức Gradient của phương sai}
-	Công thức đạo hàm hàm log-xác suất (log-likelihood) theo biến $\sigma$ được biểu diễn như sau:
+	% --- SLIDE 3.6 ---
+	\begin{frame}{\textbf{3.6. Dẫn xuất Gradient ma trận ($G_M$)}}
+		Đạo hàm theo $M$ tại điểm gốc:
+		\[ \nabla_M J \approx \nabla_M \left( -\frac{1}{2}\text{tr}(M) - \frac{1}{2} z^T (I - M) z \right) = \frac{1}{2} (z z^T - I) \]
+		\vspace{-0.5em}
+		\begin{beamercolorbox}[sep=4pt,center,shadow=true,rounded=true, wd=0.5\textwidth]{block body}
+			$G_M = \sum u_i (z_i z_i^T - I)$
+		\end{beamercolorbox}
+		
+		\begin{explanation}
+			\textbf{Chi tiết đạo hàm ma trận:} (Sử dụng các identity đạo hàm ma trận cơ bản)
+			\begin{enumerate}
+				\item \textbf{Đạo hàm Trace:} $\frac{\partial}{\partial M} (-\frac{1}{2} \text{tr}(M)) = -\frac{1}{2} I$. (Vì đạo hàm trace(M) là I).
+				\item \textbf{Đạo hàm số mũ (đã xấp xỉ):} Ta xét phần chứa $M$ trong biểu thức $\|(I - \frac{1}{2}M)z\|^2 \approx z^T (I-M) z$ (bỏ qua bậc 2 của M).
+				\\ Phần phụ thuộc M là: $-\frac{1}{2} z^T (-M) z = \frac{1}{2} z^T M z = \frac{1}{2} \text{tr}(z z^T M)$.
+				\\ Đạo hàm của $\text{tr}(A M)$ theo $M$ chính là $A^T$. Ở đây $A = z z^T$.
+				\\ $\Rightarrow \text{Gradient} = +\frac{1}{2} z z^T$.
+				\item \textbf{Tổng hợp:} $-\frac{1}{2} I + \frac{1}{2} z z^T = \frac{1}{2} (z z^T - I)$.
+			\end{enumerate}
+		\end{explanation}
+	\end{frame}
 	
-	\begin{equation}
-		\nabla_\sigma \log \pi \propto \frac{(z - \mu)^2 - \sigma^2}{\sigma^3}
-	\end{equation}
-	
-	\subsection{Ý nghĩa các thành phần trong công thức}
-	\begin{itemize}
-		\item \textbf{Tử số $(z - \mu)^2 - \sigma^2$}: 
-		\begin{itemize}
-			\item Đây là đại lượng đo lường sự khác biệt giữa khoảng cách của mẫu $z$ tới tâm $\mu$ so với độ biến thiên hiện tại $\sigma^2$.
-			\item Nếu mẫu $z$ nằm xa tâm hơn mức kỳ vọng ($\sigma^2$), gradient sẽ mang dấu dương để tăng $\sigma$.
-		\end{itemize}
-		\item \textbf{Mẫu số $\sigma^3$}: Đây là thành phần quyết định tốc độ thay đổi của gradient. Khi $\sigma$ càng nhỏ, giá trị của phân thức tăng theo hàm lũy thừa bậc 3.
-	\end{itemize}
-	
-	\section{Lý do của sự sụp đổ (Failure Analysis)}
-	
-	Thuật toán Vanilla Search Gradient thất bại vì hai nguyên nhân chính:
-	
-	\subsection{Vấn đề 1: Độ nhạy tham số (Parameter Sensitivity)}
-	Trong không gian tham số Euclidean, một bước nhảy có độ dài $\epsilon$ trên trục $\mu$ chỉ làm dịch chuyển phân phối, nhưng một bước nhảy cùng độ dài $\epsilon$ trên trục $\sigma$ có thể làm thay đổi hoàn toàn đặc tính của phân phối (ví dụ: biến một phân phối rộng thành một điểm cực hẹp). Vanilla Gradient xử lý hai biến này như nhau, dẫn đến việc cập nhật không ổn định.
-	
-	\subsection{Vấn đề 2: Bùng nổ Gradient (Variance Collapse)}
-	Khi thuật toán bắt đầu hội tụ về phía nghiệm tối ưu, giá trị $\sigma$ có xu hướng nhỏ lại để tập trung vào vùng tốt nhất. 
-	\begin{itemize}
-		\item Theo công thức (1), khi $\sigma \to 0$, thì $\nabla_\sigma \log \pi \to \infty$.
-		\item Hiện tượng này gọi là \textbf{Bùng nổ Gradient} hoặc \textbf{Variance Collapse}. Chỉ một bước cập nhật với gradient cực lớn sẽ khiến $\sigma$ trở thành số âm hoặc văng ra khỏi vùng hội tụ, làm thuật toán bị "sập" ngay lập tức.
-	\end{itemize}
-	
-	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Kết luận quan trọng}]
-		Khoảng cách \textbf{Euclidean} truyền thống trong không gian tham số $\theta$ không thể hiện được bản chất sự thay đổi của hành vi xác suất. Để khắc phục, các phương pháp hiện đại sử dụng \textbf{Natural Gradient} để điều chỉnh bước đi dựa trên độ dốc thực sự trong không gian phân phối (thường thông qua ma trận Fisher Information).
-	\end{tcolorbox}
-	
-	\section*{Giải thích khái niệm: Baseline Trung tâm (Centered Baseline)}
-	
-	\section{Định nghĩa từ công thức}
-	Trong lý thuyết Cải tiến Utility, "Baseline trung tâm" được định nghĩa qua công thức toán học sau:
-	
-	\begin{equation}
-		\sum_{k=1}^{\lambda} u_k = 0
-	\end{equation}
-	
-	\noindent \textbf{Ý nghĩa:} Tổng của tất cả các trọng số tiện ích ($u_k$) được gán cho các cá thể trong một quần thể (quá trình lấy mẫu) bắt buộc phải bằng 0.
-	
-	\section{Ý nghĩa thực tiễn (Tại sao phải làm vậy?)}
-	Để hiểu đơn giản, hãy tưởng tượng bài toán chấm điểm cho một nhóm học sinh.
-	
-	\subsection*{Trường hợp 1: Không có Baseline (Cách thông thường)}
-	Giả sử bạn cho điểm các hành động là: \textbf{8, 9, 10}.
-	\begin{itemize}
-		\item Tất cả đều là số dương.
-		\item Thuật toán sẽ hiểu rằng "cả 3 hành động này đều tốt".
-		\item Hệ quả: Nó cố gắng tăng xác suất cho cả 3 (chỉ ưu tiên điểm 10 hơn một chút). Điều này làm quá trình học diễn ra chậm và dễ bị nhiễu.
-	\end{itemize}
-	
-	\subsection*{Trường hợp 2: Có Baseline trung tâm (Cách cải tiến)}
-	Hệ thống sẽ tính điểm trung bình (là 9) và trừ đi giá trị đó để chuẩn hóa:
-	\begin{itemize}
-		\item Điểm 10 $\rightarrow$ thành \textbf{+1} (Tốt hơn trung bình $\rightarrow$ \textcolor{blue}{Khuyến khích/Tăng xác suất}).
-		\item Điểm 9 $\rightarrow$ thành \textbf{0} (Bình thường $\rightarrow$ Giữ nguyên).
-		\item Điểm 8 $\rightarrow$ thành \textbf{-1} (Tệ hơn trung bình $\rightarrow$ \textcolor{red}{Hạn chế/Tránh xa}).
-	\end{itemize}
-	
-	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Tác dụng cốt lõi}]
-		Việc đảm bảo tổng bằng 0 giúp phân chia tập dữ liệu thành hai phe rõ rệt:
-		\begin{itemize}
-			\item \textbf{Phe Tốt ($u_k > 0$):} Thuật toán di chuyển phân phối về phía chúng.
-			\item \textbf{Phe Xấu ($u_k < 0$):} Thuật toán di chuyển phân phối tránh xa chúng.
-		\end{itemize}
-	\end{tcolorbox}
-	
-	\section{Lợi ích kỹ thuật}
-	Trong bối cảnh tối ưu hóa Gradient (Gradient Descent) hoặc Chiến lược tiến hóa (Evolution Strategies):
-	
-	\begin{enumerate}
-		\item \textbf{Giảm phương sai (Variance Reduction):} Giúp thuật toán ổn định hơn mà không làm thay đổi kỳ vọng của Gradient (Unbiased).
-		\item \textbf{Tính bất biến (Invariance):} Giúp thuật toán không bị "lạc lối" nếu quy mô phần thưởng thay đổi. Ví dụ: Nếu cộng thêm 1000 vào tất cả các phần thưởng, thì sau khi trừ đi trung bình, giá trị $u_k$ vẫn không đổi. Đây chính là tính chất bất biến được nhắc đến trong lý thuyết.
-	\end{enumerate}
-	
-	\vspace{1em}
-	\noindent \textbf{Tóm lại:} "Baseline trung tâm" là kỹ thuật chuẩn hóa để hệ thống luôn phân biệt rõ đâu là mẫu \textit{"cần phát huy"} và đâu là mẫu \textit{"cần loại bỏ"}, thay vì nhìn nhận mọi kết quả đều là tín hiệu dương.
-	
-	\section{Giải mã Ký hiệu và Công thức - Ma trận Fisher}
-	
-	\subsection{1. Ma trận Fisher ($F$)}
-	Công thức định nghĩa:
-	\begin{equation}
-		F(\theta) = \mathbb{E}[\nabla_\theta \log \pi \nabla_\theta \log \pi^\top]
-	\end{equation}
-	
-	\noindent \textbf{Giải thích chi tiết:}
-	\begin{itemize}
-		\item \textbf{$F(\theta)$ (Fisher Information Matrix):} Ma trận vuông ($n \times n$) đóng vai trò như "bản đồ địa hình" của không gian xác suất. Nó cho biết lượng thông tin mà dữ liệu quan sát được mang lại về tham số $\theta$.
-		\item \textbf{$\mathbb{E}$ (Expectation):} Kỳ vọng toán học, nghĩa là giá trị trung bình được tính trên toàn bộ không gian mẫu (hoặc xấp xỉ qua nhiều mẫu thử).
-		\item \textbf{$\nabla_\theta \log \pi$ (Score Function):} Đạo hàm của hàm log-xác suất. Đây là một vector cột (vertical vector).
-		\item \textbf{$\nabla_\theta \log \pi^\top$:} Vector chuyển vị (transpose) của đạo hàm trên (vector hàng).
-		\item \textbf{Tích vô hướng (Outer Product):} Phép nhân (Cột $\times$ Hàng) tạo ra ma trận $F$, đo lường sự tương quan (covariance) giữa các đạo hàm riêng của tham số.
-	\end{itemize}
-	
-	\subsection{2. Natural Gradient ($\tilde{\nabla}_\theta J$)}
-	Công thức cập nhật:
-	\begin{equation}
-		\tilde{\nabla}_\theta J = F(\theta)^{-1} \hat{\nabla}_\theta J
-	\end{equation}
-	
-	\noindent \textbf{Giải thích chi tiết:}
-	\begin{itemize}
-		\item \textbf{$\hat{\nabla}_\theta J$ (Vanilla Gradient):} Gradient thông thường (dựa trên đạo hàm Euclidean). Đây chính là thành phần dễ gây bùng nổ phương sai.
-		\item \textbf{$F(\theta)^{-1}$ (Inverse Fisher Matrix):} Ma trận nghịch đảo của Fisher. Nó đóng vai trò là bộ \textbf{"điều chỉnh" (correction term)}.
-		\item \textbf{$\tilde{\nabla}_\theta J$ (Natural Gradient):} Gradient tự nhiên. Đây là hướng di chuyển thực sự tối ưu sau khi đã được chuẩn hóa bởi độ cong của không gian.
-	\end{itemize}
-	
-	\section{Ý nghĩa: Độ cong và Khoảng cách KL}
-	
-	\subsection{Góc nhìn Euclidean vs. Riemann}
-	\begin{itemize}
-		\item \textbf{Gradient thường (Euclidean):} Coi không gian tham số là phẳng. Nó đánh đồng việc thay đổi $\mu$ (vị trí) và $\sigma$ (hình dạng) là như nhau. Điều này sai lầm vì thay đổi $\sigma$ khi nó đang nhỏ (ví dụ $0.01 \to 0.02$) gây ra biến đổi phân phối lớn hơn nhiều so với khi nó đang lớn ($1.0 \to 1.01$).
-		\item \textbf{Natural Gradient (Riemann):} Sử dụng độ đo \textbf{KL-Divergence} để đo sự khác biệt giữa hai phân phối xác suất, thay vì khoảng cách số học giữa các tham số.
-	\end{itemize}
-	
-	\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Hình tượng so sánh: Hệ thống phanh ABS}]
-		Ma trận Fisher hoạt động như một hệ thống kiểm soát độ bám đường. Nếu bề mặt "trơn trượt" (tham số quá nhạy cảm, ví dụ $\sigma \to 0$), ma trận $F$ sẽ có giá trị lớn. Khi nhân với nghịch đảo $F^{-1}$ (giá trị nhỏ), nó sẽ tự động \textbf{"giảm tốc"} bước cập nhật của tham số đó lại, ngăn chặn hiện tượng văng ra khỏi quỹ đạo (sụp đổ thuật toán).
-	\end{tcolorbox}
-	
-	\section{Tại sao tránh được bước đi Zig-zag?}
-	Hãy tưởng tượng hàm mục tiêu là một thung lũng hẹp và dài (như hình lòng chảo - Rosenbrock function).
-	\begin{itemize}
-		\item \textbf{Gradient thường:} Sẽ lao xuống dốc theo hướng vuông góc với đường đồng mức. Do thung lũng hẹp, nó sẽ va vào vách này rồi bật sang vách kia liên tục (Zig-zag), tốn nhiều bước đi mà ít tiến về đích.
-		\item \textbf{Natural Gradient:} Nhờ ma trận $F$, thuật toán "nhìn thấy" cấu trúc lòng chảo. Nó bẻ cong vector cập nhật để đi dọc theo đáy thung lũng, tiến thẳng về cực trị một cách mượt mà nhất.
-	\end{itemize}
-	
-	\section{Mối liên hệ với NES (Natural Evolution Strategies)}
-	Thuật toán NES (Natural Evolution Strategies) được đặt tên dựa trên việc sử dụng \textbf{Natural Gradient}. Đây là giải pháp toán học triệt để cho vấn đề "Variance Collapse":
-	
-	\begin{enumerate}
-		\item Trong Vanilla Search, Gradient tỉ lệ nghịch với $\sigma^3$ (hoặc $\sigma$ tùy ngữ cảnh), gây bùng nổ khi $\sigma \to 0$.
-		\item Trong NES, ma trận Fisher $F$ xấp xỉ tỉ lệ nghịch với $\sigma^2$ (đối với phân phối chuẩn).
-		\item Phép nhân $F^{-1} \times \nabla J$ sẽ có dạng xấp xỉ: 
-		$$ \sigma^2 \times \frac{1}{\sigma^k} \approx \text{Hằng số ổn định} $$
-		\item \textbf{Kết luận:} NES loại bỏ sự phụ thuộc tiêu cực vào độ lớn của $\sigma$, giúp thuật toán hoạt động bền vững ngay cả khi phân phối hội tụ về một điểm cực nhỏ.
-	\end{enumerate}
+	% --- SLIDE 3.7 ---
+	\begin{frame}{\textbf{3.7. Phân rã tham số (Decomposition)}}
+		Tách không gian cập nhật thành hai phần trực giao:
+		\begin{columns}
+			\column{0.5\textwidth}
+			1. \textbf{Scale ($G_\sigma$):} Hướng đẳng hướng
+			\[ G_\sigma = \frac{\text{tr}(G_M)}{d} \]
+			\column{0.5\textwidth}
+			2. \textbf{Shape ($G_B$):} Hướng lệch
+			\[ G_B = G_M - G_\sigma \cdot I \]
+		\end{columns}
+		
+		\begin{explanation}
+			\textbf{Tại sao công thức này đảm bảo trực giao?}
+			\begin{itemize}
+				\item Ta phân tích ma trận $G_M$ thành tổng: $G_M = s \cdot I + G_B$.
+				\item Lấy Trace hai vế: $\text{tr}(G_M) = s \cdot \text{tr}(I) + \text{tr}(G_B) = s \cdot d + \text{tr}(G_B)$.
+				\item Yêu cầu của Shape update là \textbf{giữ nguyên thể tích}, tương đương với định thức không đổi $\rightarrow$ $\text{tr}(G_B)$ phải bằng 0.
+				\item Thay $\text{tr}(G_B)=0$ vào phương trình trên: $\text{tr}(G_M) = s \cdot d \Rightarrow s = \text{tr}(G_M)/d$.
+				\item $\Rightarrow$ Đây là cách duy nhất để tách phần thay đổi kích thước ($s$) ra khỏi phần thay đổi hình dáng ($G_B$).
+			\end{itemize}
+		\end{explanation}
+	\end{frame}
 	
 \end{document}

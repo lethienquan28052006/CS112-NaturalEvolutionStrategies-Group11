@@ -14,6 +14,7 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{booktabs}
+\usepackage{tikz}
 
 % --- Định nghĩa lệnh toán học ---
 \newcommand{\E}{\mathbb{E}}
@@ -282,16 +283,41 @@
 
 % --- 2.6 Natural Gradient (Giải pháp) ---
 \begin{frame}{\textbf{2.6. Giải pháp: Natural Gradient}}
-	Thay vì dùng khoảng cách Euclidean trong không gian tham số, ta dùng khoảng cách giữa các phân phối xác suất (Kullback-Leibler Divergence).
+	Thay vì dùng khoảng cách Euclidean, ta dùng khoảng cách giữa các phân phối xác suất (Kullback-Leibler Divergence) để kiểm soát bước nhảy.
 	
-	\textbf{Bài toán tối ưu ràng buộc:}
-	Tìm bước nhảy $\delta \theta$ sao cho tối đa hóa hàm mục tiêu, nhưng giới hạn sự thay đổi của phân phối:
+	\textbf{Bài toán tối ưu ràng buộc (Trust Region):}
 	\begin{align}
 		\max_{\delta \theta} \quad & J(\theta + \delta \theta) \approx J(\theta) + \delta \theta^\top \nabla_\theta J \nonumber \\
 		\text{s.t.} \quad & D_{KL}(\pi(\cdot|\theta + \delta \theta) || \pi(\cdot|\theta)) = \varepsilon
 	\end{align}
 	
-	Trong đó $D_{KL} \approx \frac{1}{2} \delta \theta^\top F(\theta) \delta \theta$ (xấp xỉ Taylor bậc 2).
+	Trong đó: $D_{KL} \approx \frac{1}{2} \delta \theta^\top \mathbf{F} \delta \theta$ (Khai triển Taylor bậc 2).
+	
+	\vspace{0.5em}
+	\begin{block}{Giải thích ý nghĩa}
+		\begin{itemize}
+			\item \textbf{Tại sao dùng dấu "$=$"?} Hàm mục tiêu $J$ được xấp xỉ tuyến tính (mặt phẳng nghiêng), nên điểm tối ưu luôn nằm ở \textbf{biên} của vùng tin cậy.
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{\textbf{2.6.b. 	Tại sao $F$ xuất hiện trong $D_{KL}$?}}
+	Để tính ràng buộc, ta \textbf{khai triển Taylor bậc 2} của hàm $D_{KL}(\pi_\theta || \pi_{\theta+\delta\theta})$ quanh điểm $\delta\theta = 0$:
+	
+	\begin{equation}
+		D_{KL} \approx \underbrace{D_{KL}(\theta||\theta)}_{=0} + \underbrace{\nabla D_{KL}\big|_{\delta\theta=0}^\top \delta\theta}_{=0} + \frac{1}{2} \delta\theta^\top \underbrace{\nabla^2 D_{KL}\big|_{\delta\theta=0}}_{\mathbf{H}} \delta\theta
+	\end{equation}
+	
+	\textbf{Giải thích các thành phần:}
+	\begin{itemize}
+		\item \textbf{Hạng tử bậc 0 ($=0$):} Khoảng cách giữa hai phân phối giống hệt nhau luôn bằng 0.
+		\item \textbf{Hạng tử bậc 1 ($=0$):} Vì $D_{KL} \ge 0$ và đạt cực tiểu toàn cục tại $\delta\theta=0$, nên đạo hàm bậc 1 (Gradient) tại đó phải bằng 0.
+		\item \textbf{Hạng tử bậc 2 ($=F$):} Trong thống kê học, người ta chứng minh được rằng: \textit{Ma trận Hessian (đạo hàm bậc 2) của KL-divergence chính là \textbf{Ma trận thông tin Fisher (F)}.}
+	\end{itemize}
+	
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{block body}
+		\[ \Rightarrow D_{KL}(\pi_\theta || \pi_{\theta+\delta\theta}) \approx \frac{1}{2} \delta\theta^\top \mathbf{F} \delta\theta \]
+	\end{beamercolorbox}
 \end{frame}
 
 % --- 2.7 Ma trận Fisher ---
@@ -350,6 +376,39 @@
 	\end{beamercolorbox}
 \end{frame}
 
+% --- BỔ SUNG: Slide giải thích Cholesky ---
+\begin{frame}{\textbf{3.0. Sinh mẫu Gaussian: Phân rã Cholesky}}
+	\begin{alertblock}{Vấn đề thực tế}
+		Máy tính chỉ có thể sinh số ngẫu nhiên chuẩn tắc $z \sim \mathcal{N}(0, I)$ (đám mây hình cầu). Làm sao để tạo ra mẫu $x \sim \mathcal{N}(\mu, \Sigma)$ (đám mây hình elip nghiêng)?
+	\end{alertblock}
+	
+	\textbf{Giải pháp: Phân rã Cholesky}
+	Mọi ma trận hiệp phương sai $\Sigma$ (đối xứng, xác định dương) đều có thể phân rã thành:
+	\[ \Sigma = A A^\top \]
+	Trong đó $A$ là ma trận tam giác dưới. Khi đó, mẫu $x$ được sinh ra bằng biến đổi tuyến tính:
+	\[ x = \mu + A z \]
+	
+	\textbf{Ý nghĩa:}
+	\begin{itemize}
+		\item $A$ đóng vai trò như "căn bậc hai" của ma trận $\Sigma$.
+		\item Việc tối ưu hóa $\Sigma$ trong thuật toán thực chất là tìm kiếm ma trận $A$ để biến đổi hình dáng đám mây điểm sao cho khớp với địa hình hàm số.
+	\end{itemize}
+\end{frame}
+
+% --- BỔ SUNG: Slide về Linear Invariance ---
+\begin{frame}{\textbf{3.. Khái niệm: Tính bất biến tuyến tính (Linear Invariance)}}
+	\begin{block}{Định nghĩa}
+		Một thuật toán có tính bất biến tuyến tính nếu hiệu suất của nó không thay đổi dưới bất kỳ phép biến đổi tuyến tính nào của không gian tìm kiếm (xoay, co giãn, lật hệ trục tọa độ).
+	\end{block}
+	
+	\textbf{Tại sao quan trọng?}
+	\begin{itemize}
+		\item \textbf{Vấn đề Ill-conditioned:} Các bài toán thực tế thường có các chiều biến thiên không đều (ví dụ: $x_1$ thay đổi theo đơn vị mét, $x_2$ thay đổi theo milimet), tạo thành các "thung lũng" hẹp và dài.
+		\item \textbf{Gradient thường:} Bị méo mó theo hệ trục, dẫn đến việc di chuyển zíc-zắc rất chậm (như hình minh họa slide trước).
+		\item \textbf{Natural Gradient:} Có khả năng "chuẩn hóa" không gian cục bộ, biến thung lũng hẹp trở lại thành hình tròn, giúp thuật toán đi thẳng về đích bất kể đơn vị đo lường.
+	\end{itemize}
+\end{frame}
+
 % --- SLIDE 3.1: GIỚI THIỆU & ĐỘNG LỰC ---
 \begin{frame}{\textbf{3.1. Tại sao cần xNES?}}
 	\textbf{Hạn chế của các phiên bản trước:}
@@ -404,9 +463,9 @@
 \begin{frame}{\textbf{3.4. Log-Likelihood trong tọa độ tự nhiên}}
 	Với mẫu $x = \mu + A z$ (với $z \sim \mathcal{N}(0, I)$), mật độ xác suất trong hệ tọa độ $(\delta, M)$ là:
 	
-	\[ \log p(x | \delta, M) = -\frac{d}{2}\log(2\pi) - \text{tr}(\log A_{new}) - \frac{1}{2} \| A_{new}^{-1}(x - \mu_{new}) \|^2 \]
+	\[ \log p(x | \delta, M) = -\frac{d}{2}\log(2\pi) - \text{tr}(\log A_{new}) - \frac{1}{2} \| A_{new}^{-1}(x	 - \mu_{new}) \|^2 \]
 	
-	Thay thế các tham số từ phương trình (1) và (2), và xấp xỉ Taylor bậc 1 quanh 0:
+	Thay thế các tham số từ phương trình (9) và (10), và xấp xỉ Taylor bậc 1 quanh 0:
 	\[ \log p(z | \delta, M) \approx C - \underbrace{\frac{1}{2}\text{tr}(M)}_{\text{từ } \det} - \underbrace{\frac{1}{2} \| (I - \frac{1}{2}M)(z - \delta) \|^2}_{\text{từ số mũ}} \]
 	
 	Ta sẽ dùng công thức này để tính đạo hàm theo $\delta$ và $M$.
@@ -436,6 +495,43 @@
 	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{block body}
 		\[ G_M = \sum_{i=1}^n u_i \cdot (z_i z_i^T - I) \]
 	\end{beamercolorbox}
+\end{frame}
+
+% --- BỔ SUNG: Slide minh họa trực quan xNES ---
+\begin{frame}{\textbf{3.7.b. Minh họa}}
+	Việc tách $G_M$ giúp kiểm soát riêng biệt độ lớn bước nhảy (Scale) và hướng xoay (Shape).
+	
+	\begin{center}
+		\begin{tikzpicture}[scale=1.5]
+			% Trục tọa độ
+			\draw[->, thick, gray] (-0.5,0) -- (3,0) node[right] {Không gian};
+			\draw[->, thick, gray] (0,-0.5) -- (0,2);
+			
+			% Vector G_M gốc
+			\draw[->, thick, black] (0,0) -- (2.5, 1.5) node[right] {$\mathbf{G_M}$ (Gradient tổng)};
+			
+			% Vector Scale (Đẳng hướng - Chiếu lên đường chéo đơn vị)
+			\draw[->, thick, blue, dashed] (0,0) -- (1.5, 1.5) node[above left] {$\mathbf{G_\sigma} \cdot I$ (Scale)};
+			
+			% Vector Shape (Phần dư trực giao)
+			\draw[->, thick, red] (1.5, 1.5) -- (2.5, 1.5) node[midway, below] {$\mathbf{G_B}$ (Shape)};
+			
+			\node at (1.5, -0.8) {\small $G_M = \textcolor{blue}{\text{Thay đổi kích thước}} + \textcolor{red}{\text{Biến dạng hình học}}$};
+		\end{tikzpicture}
+	\end{center}
+	
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\textbf{1. Scale ($G_\sigma$):} 
+			\[ \text{Trace} \neq 0 \]
+			Phóng to/Thu nhỏ toàn bộ đám mây mà không đổi hình dạng.
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\textbf{2. Shape ($G_B$):}
+			\[ \text{Trace} = 0 \]
+			Làm méo hình dạng (Elip hóa) nhưng giữ nguyên thể tích khối.
+		\end{column}
+	\end{columns}
 \end{frame}
 
 % --- SLIDE 3.7: PHÂN RÃ KHÔNG GIAN THAM SỐ ---
@@ -489,6 +585,11 @@
 			\ENDLOOP
 		\end{algorithmic}
 	\end{algorithm}
+\end{frame}
+
+
+\begin{frame}{\textbf{3.10. XNES vs NES}}
+	chèn demo vào đây
 \end{frame}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
