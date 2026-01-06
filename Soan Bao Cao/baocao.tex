@@ -14,6 +14,7 @@
 \usepackage{bm}
 \usepackage{parskip}
 \usepackage{float}
+\usepackage{caption}
 
 % --- Cấu hình liên kết ---
 \hypersetup{
@@ -221,6 +222,15 @@
 		\item \textbf{Hệ tọa độ tự nhiên:} Thực hiện cập nhật trong không gian nơi ma trận Fisher là đơn vị.
 	\end{itemize}
 	
+	\subsection{Cơ chế Fitness Shaping}
+	Một đặc điểm quan trọng của xNES là không sử dụng trực tiếp giá trị hàm mục tiêu $f(x_i)$. Thay vào đó, thuật toán sử dụng cơ chế \textbf{xếp hạng (rank-based fitness shaping)}. 
+	
+	Các cá thể được sắp xếp dựa trên độ thích nghi, và trọng số $u_i$ được gán dựa trên thứ hạng $k$ của cá thể đó:
+	\begin{equation}
+		u_k = \frac{\max(0, \log(\lambda/2 + 1) - \log(k))}{\sum_{j=1}^\lambda \max(0, \log(\lambda/2 + 1) - \log(j))} - \frac{1}{\lambda}.
+	\end{equation}
+	Việc này giúp thuật toán bất biến với các phép biến đổi đơn điệu của hàm mục tiêu và hạn chế tác động của các giá trị ngoại lai (outliers).
+	
 	\subsection{Quy tắc cập nhật}
 	Với $x_i = \mu + \sigma B z_i$, các gradient được xác định như:
 	\[
@@ -283,9 +293,32 @@
 	f(x) = 10d + \sum_{i=1}^d (x_i^2 - 10\cos 2\pi x_i).
 	\]
 	
+	\subsection{Thiết lập thực nghiệm}
+	Chúng tôi tiến hành thử nghiệm với các tham số cấu hình như sau:
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{lc}
+			\toprule
+			\textbf{Tham số} & \textbf{Giá trị} \\
+			\midrule
+			Số chiều ($d$) & 2 \\
+			Kích thước quần thể ($\lambda$) & 50 \\
+			Số vòng lặp (Iterations) & 60 \\
+			Learning rate vị trí ($\eta_\mu$) & 1.0 \\
+			Learning rate hình dạng ($\eta_\sigma, \eta_B$) & $\approx 0.783$ \\
+			Khởi tạo $\mu$ & $(4.0, 4.0)$ \\
+			Khởi tạo $\sigma$ & 1.0 \\
+			\bottomrule
+		\end{tabular}
+		\caption{Cấu hình tham số thực nghiệm cho thuật toán xNES}
+		\label{tab:params}
+	\end{table}
+	
+	\subsection{Kết quả thực nghiệm}
+	
 	\begin{figure}[H]
 		\centering
-		
 		\includegraphics[width=0.4\textwidth]{xnes/frame_00_delay-0.2s.png}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_01_delay-0.2s.png}
 		\vspace{0.1cm}
@@ -294,13 +327,19 @@
 		\vspace{0.1cm}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_04_delay-0.2s.png}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_05_delay-0.2s.png}
-		\vspace{0.1cm}
+		\caption{So sánh quỹ đạo hội tụ (phần 1)}
+		\label{fig:xnesvsother-1}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\ContinuedFloat
+		\centering
 		\includegraphics[width=0.4\textwidth]{xnes/frame_06_delay-0.2s.png}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_10_delay-0.2s.png}
 		\vspace{0.1cm}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_20_delay-0.2s.png}
 		\includegraphics[width=0.4\textwidth]{xnes/frame_30_delay-0.2s.png}
-		\caption{xNES | CMA-ES | Gradient Descent }
+		\caption{So sánh quỹ đạo hội tụ: xNES và CMA-ES tìm được cực trị toàn cục (0,0), trong khi Gradient Descent bị kẹt tại cực trị địa phương}
 		\label{fig:xnesvsother}
 	\end{figure}
 	
@@ -309,5 +348,24 @@
 	% =========================================================
 	\section{Kết luận}
 	Báo cáo đã trình bày khung lý thuyết của Natural Evolution Strategies và biến thể xNES. Kết quả thực nghiệm cho thấy xNES đạt hiệu năng cao, ổn định và có nền tảng toán học rõ ràng, trở thành một lựa chọn hiệu quả cho các bài toán tối ưu hóa hộp đen.
+	
+	\begin{thebibliography}{9}
+		
+		\bibitem{wierstra2014}
+		Wierstra, D., Schaul, T., Glasmachers, T., Sun, Y., Peters, J., \& Schmidhuber, J. (2014).
+		\textit{Natural evolution strategies}.
+		The Journal of Machine Learning Research, 15(1), 949-980.
+		
+		\bibitem{hansen2001}
+		Hansen, N., \& Ostermeier, A. (2001).
+		\textit{Completely derandomized self-adaptation in evolution strategies}.
+		Evolutionary computation, 9(2), 159-195.
+		
+		\bibitem{amari1998}
+		Amari, S. I. (1998).
+		\textit{Natural gradient works efficiently in learning}.
+		Neural computation, 10(2), 251-276.
+		
+	\end{thebibliography}
 	
 \end{document}

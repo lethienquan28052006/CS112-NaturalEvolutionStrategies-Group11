@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  6 JAN 2026 10:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.4.20)  6 JAN 2026 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -571,12 +571,32 @@ LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 24.
+(C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen178
+\captionmargin=\dimen179
+\caption@leftmargin=\dimen180
+\caption@rightmargin=\dimen181
+\caption@width=\dimen182
+\caption@indent=\dimen183
+\caption@parindent=\dimen184
+\caption@hangindent=\dimen185
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count300
+\c@continuedfloat=\count301
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 25.
 
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
+\l__color_backend_stack_int=\count302
 \l__pdf_internal_box=\box55
 ) (baocao.aux
 LaTeX Font Info:    Trying to load font information for T5+cmr on input line 8.
@@ -587,26 +607,26 @@ File: t5cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ))
 \openout1 = `baocao.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T5/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -646,16 +666,16 @@ LaTeX Font Info:    ... okay on input line 44.
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count301
-\scratchdimen=\dimen178
+\scratchcounter=\count303
+\scratchdimen=\dimen186
 \scratchbox=\box56
-\nofMPsegments=\count302
-\nofMParguments=\count303
+\nofMPsegments=\count304
+\nofMParguments=\count305
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count304
-\MPscratchDim=\dimen179
-\MPnumerator=\count305
-\makeMPintoPDFobject=\count306
+\MPscratchCnt=\count306
+\MPscratchDim=\dimen187
+\MPnumerator=\count307
+\makeMPintoPDFobject=\count308
 \everyMPtoPDFconversion=\toks36
 )
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -675,23 +695,25 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 Package color Info: Driver file: pdftex.def on input line 149.
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 )
-Package hyperref Info: Link coloring ON on input line 44.
+Package hyperref Info: Link coloring ON on input line 45.
  (baocao.out) (baocao.out)
 \@outlinefile=\write3
 \openout3 = `baocao.out'.
 
-<logo_uit.jpg, id=55, 546.3612pt x 444.2196pt>
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+<logo_uit.jpg, id=63, 546.3612pt x 444.2196pt>
 File: logo_uit.jpg Graphic file (type jpg)
 <use logo_uit.jpg>
-Package pdftex.def Info: logo_uit.jpg  used on input line 57.
+Package pdftex.def Info: logo_uit.jpg  used on input line 58.
 (pdftex.def)             Requested size: 100.15425pt x 81.42696pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 86.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 87.
 
 
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 86.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
 
 
 (C:\Users\ADMIN\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -709,212 +731,192 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.104 	\newpage
+l.105 	\newpage
                 [1] [2]
-<BungNoGradient.png, id=90, 1148.3703pt x 426.393pt>
+<BungNoGradient.png, id=100, 1148.3703pt x 426.393pt>
 File: BungNoGradient.png Graphic file (type png)
 <use BungNoGradient.png>
-Package pdftex.def Info: BungNoGradient.png  used on input line 169.
+Package pdftex.def Info: BungNoGradient.png  used on input line 170.
 (pdftex.def)             Requested size: 409.71692pt x 152.12854pt.
-<BungNoGradient/frame_00_delay-0.16s.png, id=92, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_00_delay-0.16s.png, id=102, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_00_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_00_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_00_delay-0.16s.png  used on input
- line 196.
+ line 197.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
-<BungNoGradient/frame_07_delay-0.16s.png, id=93, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_07_delay-0.16s.png, id=103, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_07_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_07_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_07_delay-0.16s.png  used on input
- line 197.
+ line 198.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
-<BungNoGradient/frame_14_delay-0.16s.png, id=94, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_14_delay-0.16s.png, id=104, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_14_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_14_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_14_delay-0.16s.png  used on input
- line 198.
+ line 199.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
-<BungNoGradient/frame_21_delay-0.16s.png, id=95, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_21_delay-0.16s.png, id=105, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_21_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_21_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_21_delay-0.16s.png  used on input
- line 202.
+ line 203.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
-<BungNoGradient/frame_28_delay-0.16s.png, id=96, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_28_delay-0.16s.png, id=106, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_28_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_28_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_28_delay-0.16s.png  used on input
- line 203.
+ line 204.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
-<BungNoGradient/frame_35_delay-0.16s.png, id=97, 1003.75pt x 602.25pt>
+<BungNoGradient/frame_35_delay-0.16s.png, id=107, 1003.75pt x 602.25pt>
 File: BungNoGradient/frame_35_delay-0.16s.png Graphic file (type png)
 <use BungNoGradient/frame_35_delay-0.16s.png>
 Package pdftex.def Info: BungNoGradient/frame_35_delay-0.16s.png  used on input
- line 204.
+ line 205.
 (pdftex.def)             Requested size: 145.68144pt x 87.40211pt.
- [3
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.210 	
-        <./BungNoGradient.png>]
+ [3 <./BungNoGradient.png>] [4 <./BungNoGradient/frame_00_delay-0.16s.png> <./B
+ungNoGradient/frame_07_delay-0.16s.png> <./BungNoGradient/frame_14_delay-0.16s.
+png> <./BungNoGradient/frame_21_delay-0.16s.png> <./BungNoGradient/frame_28_del
+ay-0.16s.png> <./BungNoGradient/frame_35_delay-0.16s.png>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 239.
- [4
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.250 	
-        <./BungNoGradient/frame_00_delay-0.16s.png> <./BungNoGradient/frame_07_
-delay-0.16s.png> <./BungNoGradient/frame_14_delay-0.16s.png> <./BungNoGradient/
-frame_21_delay-0.16s.png> <./BungNoGradient/frame_28_delay-0.16s.png> <./BungNo
-Gradient/frame_35_delay-0.16s.png>]
-<xnesvsnes/frame_00_delay-0.33s.png, id=128, 803.0pt x 602.25pt>
+put line 249.
+<xnesvsnes/frame_00_delay-0.33s.png, id=136, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_00_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_00_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_00_delay-0.33s.png  used on input line
- 258.
+ 268.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_09_delay-0.33s.png, id=129, 803.0pt x 602.25pt>
+<xnesvsnes/frame_09_delay-0.33s.png, id=137, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_09_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_09_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_09_delay-0.33s.png  used on input line
- 259.
+ 269.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_18_delay-0.33s.png, id=130, 803.0pt x 602.25pt>
+<xnesvsnes/frame_18_delay-0.33s.png, id=138, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_18_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_18_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_18_delay-0.33s.png  used on input line
- 260.
+ 270.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_27_delay-0.33s.png, id=131, 803.0pt x 602.25pt>
+<xnesvsnes/frame_27_delay-0.33s.png, id=139, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_27_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_27_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_27_delay-0.33s.png  used on input line
- 264.
+ 274.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_36_delay-0.33s.png, id=132, 803.0pt x 602.25pt>
+<xnesvsnes/frame_36_delay-0.33s.png, id=140, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_36_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_36_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_36_delay-0.33s.png  used on input line
- 265.
+ 275.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_45_delay-0.33s.png, id=133, 803.0pt x 602.25pt>
+<xnesvsnes/frame_45_delay-0.33s.png, id=141, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_45_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_45_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_45_delay-0.33s.png  used on input line
- 266.
+ 276.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_54_delay-0.33s.png, id=134, 803.0pt x 602.25pt>
+<xnesvsnes/frame_54_delay-0.33s.png, id=142, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_54_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_54_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_54_delay-0.33s.png  used on input line
- 270.
+ 280.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_63_delay-0.33s.png, id=135, 803.0pt x 602.25pt>
+<xnesvsnes/frame_63_delay-0.33s.png, id=143, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_63_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_63_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_63_delay-0.33s.png  used on input line
- 271.
+ 281.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnesvsnes/frame_79_delay-0.33s.png, id=136, 803.0pt x 602.25pt>
+<xnesvsnes/frame_79_delay-0.33s.png, id=144, 803.0pt x 602.25pt>
 File: xnesvsnes/frame_79_delay-0.33s.png Graphic file (type png)
 <use xnesvsnes/frame_79_delay-0.33s.png>
 Package pdftex.def Info: xnesvsnes/frame_79_delay-0.33s.png  used on input line
- 272.
+ 282.
 (pdftex.def)             Requested size: 136.57462pt x 102.4271pt.
-<xnes/frame_00_delay-0.2s.png, id=137, 1003.75pt x 803.0pt>
+ [5 <./xnesvsnes/frame_00_delay-0.33s.png> <./xnesvsnes/frame_09_delay-0.33s.pn
+g> <./xnesvsnes/frame_18_delay-0.33s.png> <./xnesvsnes/frame_27_delay-0.33s.png
+> <./xnesvsnes/frame_36_delay-0.33s.png> <./xnesvsnes/frame_45_delay-0.33s.png>
+ <./xnesvsnes/frame_54_delay-0.33s.png> <./xnesvsnes/frame_63_delay-0.33s.png> 
+<./xnesvsnes/frame_79_delay-0.33s.png>]
+<xnes/frame_00_delay-0.2s.png, id=170, 1003.75pt x 803.0pt>
 File: xnes/frame_00_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_00_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_00_delay-0.2s.png  used on input line 289.
+Package pdftex.def Info: xnes/frame_00_delay-0.2s.png  used on input line 322.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_01_delay-0.2s.png, id=138, 1003.75pt x 803.0pt>
+<xnes/frame_01_delay-0.2s.png, id=171, 1003.75pt x 803.0pt>
 File: xnes/frame_01_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_01_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_01_delay-0.2s.png  used on input line 290.
+Package pdftex.def Info: xnes/frame_01_delay-0.2s.png  used on input line 323.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_02_delay-0.2s.png, id=139, 1003.75pt x 803.0pt>
+<xnes/frame_02_delay-0.2s.png, id=172, 1003.75pt x 803.0pt>
 File: xnes/frame_02_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_02_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_02_delay-0.2s.png  used on input line 292.
+Package pdftex.def Info: xnes/frame_02_delay-0.2s.png  used on input line 325.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_03_delay-0.2s.png, id=140, 1003.75pt x 803.0pt>
+<xnes/frame_03_delay-0.2s.png, id=173, 1003.75pt x 803.0pt>
 File: xnes/frame_03_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_03_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_03_delay-0.2s.png  used on input line 293.
+Package pdftex.def Info: xnes/frame_03_delay-0.2s.png  used on input line 326.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_04_delay-0.2s.png, id=141, 1003.75pt x 803.0pt>
+<xnes/frame_04_delay-0.2s.png, id=174, 1003.75pt x 803.0pt>
 File: xnes/frame_04_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_04_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_04_delay-0.2s.png  used on input line 295.
+Package pdftex.def Info: xnes/frame_04_delay-0.2s.png  used on input line 328.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_05_delay-0.2s.png, id=142, 1003.75pt x 803.0pt>
+<xnes/frame_05_delay-0.2s.png, id=175, 1003.75pt x 803.0pt>
 File: xnes/frame_05_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_05_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_05_delay-0.2s.png  used on input line 296.
+Package pdftex.def Info: xnes/frame_05_delay-0.2s.png  used on input line 329.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_06_delay-0.2s.png, id=143, 1003.75pt x 803.0pt>
+ [6]
+<xnes/frame_06_delay-0.2s.png, id=182, 1003.75pt x 803.0pt>
 File: xnes/frame_06_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_06_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_06_delay-0.2s.png  used on input line 298.
+Package pdftex.def Info: xnes/frame_06_delay-0.2s.png  used on input line 337.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_10_delay-0.2s.png, id=144, 1003.75pt x 803.0pt>
+<xnes/frame_10_delay-0.2s.png, id=183, 1003.75pt x 803.0pt>
 File: xnes/frame_10_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_10_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_10_delay-0.2s.png  used on input line 299.
+Package pdftex.def Info: xnes/frame_10_delay-0.2s.png  used on input line 338.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_20_delay-0.2s.png, id=145, 1003.75pt x 803.0pt>
+<xnes/frame_20_delay-0.2s.png, id=184, 1003.75pt x 803.0pt>
 File: xnes/frame_20_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_20_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_20_delay-0.2s.png  used on input line 301.
+Package pdftex.def Info: xnes/frame_20_delay-0.2s.png  used on input line 340.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
-<xnes/frame_30_delay-0.2s.png, id=146, 1003.75pt x 803.0pt>
+<xnes/frame_30_delay-0.2s.png, id=185, 1003.75pt x 803.0pt>
 File: xnes/frame_30_delay-0.2s.png Graphic file (type png)
 <use xnes/frame_30_delay-0.2s.png>
-Package pdftex.def Info: xnes/frame_30_delay-0.2s.png  used on input line 302.
+Package pdftex.def Info: xnes/frame_30_delay-0.2s.png  used on input line 341.
 (pdftex.def)             Requested size: 182.09486pt x 145.67326pt.
- [5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.306 	
-        <./xnesvsnes/frame_00_delay-0.33s.png> <./xnesvsnes/frame_09_delay-0.33
-s.png> <./xnesvsnes/frame_18_delay-0.33s.png> <./xnesvsnes/frame_27_delay-0.33s
-.png> <./xnesvsnes/frame_36_delay-0.33s.png> <./xnesvsnes/frame_45_delay-0.33s.
-png> <./xnesvsnes/frame_54_delay-0.33s.png> <./xnesvsnes/frame_63_delay-0.33s.p
-ng> <./xnesvsnes/frame_79_delay-0.33s.png>]
-Overfull \vbox (68.46428pt too high) has occurred while \output is active []
-
-
-[6
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
-s been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.306 	
-        <./xnes/frame_00_delay-0.2s.png> <./xnes/frame_01_delay-0.2s.png> <./xn
-es/frame_02_delay-0.2s.png> <./xnes/frame_03_delay-0.2s.png> <./xnes/frame_04_d
-elay-0.2s.png> <./xnes/frame_05_delay-0.2s.png> <./xnes/frame_06_delay-0.2s.png
+ [7 <./xnes/frame_00_delay-0.2s.png> <./xnes/frame_01_delay-0.2s.png> <./xnes/f
+rame_02_delay-0.2s.png> <./xnes/frame_03_delay-0.2s.png> <./xnes/frame_04_delay
+-0.2s.png> <./xnes/frame_05_delay-0.2s.png>] [8 <./xnes/frame_06_delay-0.2s.png
 > <./xnes/frame_10_delay-0.2s.png> <./xnes/frame_20_delay-0.2s.png> <./xnes/fra
-me_30_delay-0.2s.png>] [7] (baocao.aux)
+me_30_delay-0.2s.png>] (baocao.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `baocao.out' has not changed.
-(rerunfilecheck)             Checksum: F40F36A422AFD65DE571E5A706B01A84;2368.
+
+
+Package rerunfilecheck Warning: File `baocao.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `baocao.out':
+(rerunfilecheck)             Before: 9E7800CA687A3140B1BCD0F0931FE94D;2735
+(rerunfilecheck)             After:  86B681B6E8D0B7C29434C1B24BEAA5CF;2909.
  ) 
 Here is how much of TeX's memory you used:
- 12562 strings out of 474486
- 200918 string characters out of 5743755
+ 13897 strings out of 474486
+ 226933 string characters out of 5743755
  1934542 words of memory out of 5000000
- 34610 multiletter control sequences out of 15000+600000
- 577382 words of font info for 76 fonts, out of 8000000 for 9000
+ 35927 multiletter control sequences out of 15000+600000
+ 578203 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,8n,79p,582b,495s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,582b,581s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ADMIN\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1200.pk><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmex10.pfb><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -929,10 +931,11 @@ IN/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
 ><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnbx12.pfb
 ><C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr10.pfb>
 <C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnr12.pfb><
-C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti10.pfb>
-Output written on baocao.pdf (8 pages, 2252807 bytes).
+C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti10.pfb><
+C:/Users/ADMIN/AppData/Local/Programs/MiKTeX/fonts/type1/vntex/vnr/vnti12.pfb>
+Output written on baocao.pdf (9 pages, 2272833 bytes).
 PDF statistics:
- 259 PDF objects out of 1000 (max. 8388607)
- 41 named destinations out of 1000 (max. 500000)
- 240 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 288 PDF objects out of 1000 (max. 8388607)
+ 52 named destinations out of 1000 (max. 500000)
+ 256 words of extra memory for PDF output out of 10000 (max. 10000000)
 
