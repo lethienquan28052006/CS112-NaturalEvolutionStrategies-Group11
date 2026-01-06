@@ -1,0 +1,14 @@
+\babel@toc {vietnamese}{}\relax 
+\contentsline {section}{\numberline {1}Giới thiệu}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Tối ưu hóa Hộp đen}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Động lực phát triển Natural Evolution Strategies}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Cơ sở Toán học của NES}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Search Gradient}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Vấn đề của Gradient thông thường}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Natural Gradient}{3}{subsection.2.3}%
+\contentsline {section}{\numberline {3}xNES -- Exponential Natural Evolution Strategies}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Hạn chế của Canonical NES}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Ý tưởng chính của xNES}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Quy tắc cập nhật}{4}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Thực nghiệm}{5}{section.4}%
+\contentsline {section}{\numberline {5}Kết luận}{7}{section.5}%
